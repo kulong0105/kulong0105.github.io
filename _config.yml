@@ -33,8 +33,8 @@ defaults:
 paginate: 20
 
 #### Site
-title : Jekyll Jacman
-tagline: A fresh looking and responsive theme for Jekyll
+title : kulong0105's blog
+tagline: Industry is rewarded and giddiness punished
 assets: /assets
 baseurl: 
 
@@ -88,8 +88,8 @@ share_button: true #enable share buttons if true
 
 #### Author information
 author:
-  name: yitao      ## e.g. wuchong Author name
-  intro_line1:  "Hello ,I'm Larry Page in Google."    ## your introduction on the bottom of the page
+  name: Allen      ## e.g. wuchong Author name
+  intro_line1:  "Hello ,I'm Allen Ren in Google."    ## your introduction on the bottom of the page
   intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
