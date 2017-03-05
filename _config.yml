@@ -58,15 +58,15 @@ widgets:
 - category
 - tag
 - tagcloud
-- links
+#- links
 - douban
 - github-card
-- rss
+#- rss
 ## provide seven widgets:github-card,category,tag,rss,archive,tagcloud,links,weibo,douban
 
 
 #### RSS 
-rss: /atom.xml ## RSS address.
+#rss: /atom.xml ## RSS address.
 
 #### Image
 imglogo:
@@ -89,7 +89,7 @@ share_button: true #enable share buttons if true
 #### Author information
 author:
   name: Allen      ## e.g. wuchong Author name
-  intro_line1:  "Hello ,I'm Allen Ren in Google."    ## your introduction on the bottom of the page
+  intro_line1:  "Hello ,I'm Allen Ren in SkyData."    ## your introduction on the bottom of the page
   intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
@@ -113,9 +113,9 @@ toc:
 ## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
 
 #### Links
-links:
-  码农圈: https://coderq.com
-  Jark's Blog: http://wuchong.me
+#links:
+#  码农圈: https://coderq.com
+#  Jark's Blog: http://wuchong.me
 
 #### Comment
 duoshuo_shortname:    ## e.g. wuchong   your duoshuo short name.
