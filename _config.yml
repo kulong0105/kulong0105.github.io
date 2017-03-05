@@ -57,7 +57,7 @@ menu:
 widgets: 
 - category
 - tag
-- tagcloud
+#- tagcloud
 #- links
 - douban
 - github-card
