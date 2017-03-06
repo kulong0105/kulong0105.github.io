@@ -6,11 +6,8 @@ tags:
 - command
 ---
 
-
 ## Linux command
-
 ### 1. virsh
-
 | 序号 | 命令| 说明|
 | --- | --- | --- |
 | 1 | virsh list --all | 查看系统所有虚拟机|
@@ -18,7 +15,7 @@ tags:
 | 3 | virsh start domain | 启动某个虚拟机|
 | 4 | virsh edit domain | 编辑配置文件|
 | 5 | virsh dumpxml domain  > tmp.xml | dump配置文件|
-| 6 | virsh vcpupin domain $guest_cpu $host_cpu | 绑定Guest的CPU |
+| 6 | virsh vcpupin domain $guest_cpu \$host_cpu | 绑定Guest的CPU |
 | 7 | virsh vcpuinfo domain | 查看信息|
 | 8 | virsh destroy domain | 关闭虚拟机|
 | 9 | virsh –c lxc:/// define domain.xml | 定义xml文件|
@@ -32,9 +29,9 @@ tags:
 | 序号 | 命令| 说明|
 | --- | --- | --- |
 | 1 | parted $DISK p | 显示磁盘分区信息 | 
-| 2 | parted $DISK rm $number  |删除disk的number号分区 |
+| 2 | parted $DISK rm \$number  |删除disk的number号分区 |
 | 3 | parted /dev/$disk -s mklabel gpt| 设置磁盘为gpt模式 | 
-| 4 | parted -s $DISK  mkpart primary xfs 1049KB $SIZE | 创建新分区 | 
+| 4 | parted -s $DISK  mkpart primary xfs 1049KB \$SIZE | 创建新分区 | 
 
 
 ### 3. perf
@@ -97,3 +94,11 @@ root用户身份执行以下命令：
 
 #opcontrol  -t/--stop
 ```
+
+```
+int main()
+{
+	int i=0;
+	printf("hello world\n");
+	return 0;
+}
