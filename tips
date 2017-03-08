@@ -1,0 +1,34 @@
+## how to run locally
+
+```
+gem install bundler
+
+bundle install
+
+bundle exec jekyll server
+
+```
+
+
+## how to put the picture into middle centre
+
+add html flag like this "<img src="" style="display:block;margin:auto"/>"
+
+
+## how to create a gallery post
+
+```
+---
+layout: photo
+title: Gallery Post
+photos:
+- http://i.minus.com/ibobbTlfxZgITW.jpg
+- http://i.minus.com/iedpg90Y0exFS.jpg
+---
+
+```
+
+
+## how to extract the abstract from the full article
+
+use `<!--more-->` to split
