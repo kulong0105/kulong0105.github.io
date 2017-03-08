@@ -166,3 +166,5 @@ tinysou_search:     ## http://tinysou.com/
 
 gems:
  - jemoji
+
+excerpt_separator: <!--more-->
