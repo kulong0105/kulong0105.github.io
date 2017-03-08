@@ -7,6 +7,7 @@ tags:
 ---
 
 ## Linux command
+
 ### 1. virsh
 | 序号 | 命令| 说明|
 | --- | --- | --- |
@@ -23,6 +24,7 @@ tags:
 | 11 | virsh –c lxc:/// console domain | 连接一个lxc |
 | 12 | virsh -c qemu+ssh://IP/system list | 查看远程机器的Guest |
       
+<!--more-->
 
 ### 2. parted 
 
@@ -96,9 +98,3 @@ root用户身份执行以下命令：
 ```
 
 ```
-int main()
-{
-	int i=0;
-	printf("hello world\n");
-	return 0;
-}

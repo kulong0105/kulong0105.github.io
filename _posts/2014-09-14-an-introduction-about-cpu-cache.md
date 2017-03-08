@@ -7,6 +7,7 @@ tags:
 ---
 
 ## 介绍
+
 1. 首先，本文将对3种体系结构的内存访问方式进行介绍，分别为：
    - 对称多处理器结构 (SMP：Symmetric Multi-Processor) 
    - 海量并行处理结构 (MPP：Massive Parallel Processing)
@@ -18,7 +19,7 @@ tags:
 
 在详细介绍不同体系架构的内存访问方式之前，先对CPU的相关概念、各种总线技术以及内存带宽等概念进行介绍。
 
-<!-- more -->
+<!--more-->
 
 完整文章请转到下面link:
 [CPU访问内存方式简介](https://pan.baidu.com/s/1dFKe4X7)
