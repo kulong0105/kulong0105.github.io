@@ -32,3 +32,21 @@ photos:
 ## how to extract the abstract from the full article
 
 use `<!--more-->` to split
+
+
+## how to colorize  the code
+
+```bash
+ls
+pwd
+
+```
+
+```c
+int main()
+{
+	printf("hello world\n");
+
+	return 0;
+}
+```
