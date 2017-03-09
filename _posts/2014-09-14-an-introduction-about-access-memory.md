@@ -1,5 +1,5 @@
 ---
-title: An introduction about different cpu arch how to access memory
+title: CPU访问内存方式简介
 category: linux
 tags:
 - linux 

@@ -1,5 +1,5 @@
 ---
-title: An introduction about cpu cache
+title: 窥探CPU Cache
 category: linux
 tags:
 - linux 

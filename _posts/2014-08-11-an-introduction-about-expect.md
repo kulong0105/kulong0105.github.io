@@ -1,5 +1,5 @@
 ---
-title: An introduction about expect
+title: Expect脚本学习
 category: linux
 tags:
 - expect

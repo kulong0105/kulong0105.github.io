@@ -1,5 +1,5 @@
 ---
-title: An introduction about gcc inline assembly
+title: 学习GCC内联汇编
 category:
 - linux
 - gcc

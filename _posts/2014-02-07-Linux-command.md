@@ -1,12 +1,14 @@
 ---
-title: Linux command
+title: Linux 常用命令简介
 category: linux
 tags:
 - linux 
 - command
 ---
 
-## Linux command
+## 介绍
+
+这里将Linux常用的各种命令进行介绍。
 
 ### 1. virsh
 | 序号 | 命令| 说明|

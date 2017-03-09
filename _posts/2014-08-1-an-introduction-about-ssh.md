@@ -1,5 +1,5 @@
 ---
-title: An introduction about ssh
+title: SSH实现原理及实践
 category: linux
 tags:
 - ssh
