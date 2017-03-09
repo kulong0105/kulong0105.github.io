@@ -1,0 +1,17 @@
+---
+title: An introduction about details for function call
+category: linux
+tags:
+- C
+---
+
+## 介绍
+
+1. 本文主要通过一个简单实例来引发对函数调用过程的说明。
+2. 为了深入理解函数调用过程，主要从汇编代码的角度去剖析它。
+3. 通过一个实例来扩展对函数调用的理解。
+
+<!--more-->
+
+完整文章请转到下面link:
+[深入理解函数调用过程](https://pan.baidu.com/s/1dFKe4X7)
