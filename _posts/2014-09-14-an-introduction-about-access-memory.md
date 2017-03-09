@@ -1,5 +1,5 @@
 ---
-title: An introduction about cpu cache
+title: An introduction about different cpu arch how to access memory
 category: linux
 tags:
 - linux 
