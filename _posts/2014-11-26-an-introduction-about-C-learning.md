@@ -13,4 +13,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Linux C编程一站式学习](https://pan.baidu.com/s/1dFKe4X7)
+[Linux C编程一站式学习](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Linux_C%E7%BC%96%E7%A8%8B%E4%B8%80%E7%AB%99%E5%BC%8F%E5%AD%A6%E4%B9%A0.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Linux_C%E7%BC%96%E7%A8%8B%E4%B8%80%E7%AB%99%E5%BC%8F%E5%AD%A6%E4%B9%A0.pdf)

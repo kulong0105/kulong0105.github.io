@@ -19,4 +19,6 @@ Container和KVM的系统架构图如下所示：
 <!--more--> 
 
 完整文章请转到下面link:
-[Linux Containers简介](https://pan.baidu.com/s/1dFKe4X7)
+[Linux Containers简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Linux%20Containers%E7%AE%80%E4%BB%8B.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Linux%20Containers%E7%AE%80%E4%BB%8B.pdf)

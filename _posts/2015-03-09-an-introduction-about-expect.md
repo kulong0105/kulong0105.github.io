@@ -18,4 +18,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Expect脚本学习](https://pan.baidu.com/s/1dFKe4X7)
+[Expect脚本学习](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Expect%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Expect%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0.pdf)

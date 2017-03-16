@@ -17,4 +17,6 @@ tags:
 <!--more--> 
 
 完整文章请转到下面link:
-[mlock实现原理及应用](https://pan.baidu.com/s/1dFKe4X7)
+[mlock实现原理及应用](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/mlock%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%BA%94%E7%94%A8.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/mlock%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%BA%94%E7%94%A8.pdf)

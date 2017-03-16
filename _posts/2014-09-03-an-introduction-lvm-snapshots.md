@@ -24,4 +24,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[LVM Snapshot简介](https://pan.baidu.com/s/1dFKe4X7)
+[LVM Snapshot简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/LVM_Snapshot%E7%AE%80%E4%BB%8B.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/LVM_Snapshot%E7%AE%80%E4%BB%8B.pdf)

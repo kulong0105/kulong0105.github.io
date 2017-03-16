@@ -23,4 +23,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[窥探CPU Cache](https://pan.baidu.com/s/1dFKe4X7)
+[窥探CPU Cache](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/%E7%AA%A5%E6%8E%A2CPU%20Cache.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/%E7%AA%A5%E6%8E%A2CPU%20Cache.pdf)

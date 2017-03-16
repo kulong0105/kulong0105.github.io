@@ -15,4 +15,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[深入理解debuginfo](https://pan.baidu.com/s/1dFKe4X7)
+[深入理解debuginfo](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3debuginfo.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3debuginfo.pdf)

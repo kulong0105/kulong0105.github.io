@@ -21,4 +21,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[系统电力消费简介](https://pan.baidu.com/s/1dFKe4X7)
+[系统电力消费简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/%E7%B3%BB%E7%BB%9F%E7%94%B5%E5%8A%9B%E6%B6%88%E8%B4%B9%E7%AE%80%E4%BB%8B.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/%E7%B3%BB%E7%BB%9F%E7%94%B5%E5%8A%9B%E6%B6%88%E8%B4%B9%E7%AE%80%E4%BB%8B.pdf)

@@ -22,4 +22,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[CPU访问内存方式简介](https://pan.baidu.com/s/1dFKe4X7)
+[CPU访问内存方式简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/CPU%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/CPU%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B.pdf)

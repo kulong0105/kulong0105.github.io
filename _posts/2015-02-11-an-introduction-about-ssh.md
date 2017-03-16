@@ -14,4 +14,6 @@ SSH是一种加密协议，不仅在登陆过程中对密码进行加密传送�
 <!--more--> 
 
 完整文章请转到下面link:
-[SSH实现原理及实践](https://pan.baidu.com/s/1dFKe4X7)
+[SSH实现原理及实践](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/ssh%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E8%B7%B5.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/ssh%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E8%B7%B5.pdf)

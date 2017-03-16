@@ -15,4 +15,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Guest网络设置](https://pan.baidu.com/s/1dFKe4X7)
+[Guest网络设置](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Guest%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Guest%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE.pdf)

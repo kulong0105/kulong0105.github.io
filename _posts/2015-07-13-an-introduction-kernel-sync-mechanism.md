@@ -21,4 +21,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Linux内核同步机制简介](https://pan.baidu.com/s/1dFKe4X7)
+[Linux内核同步机制简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E7%AE%80%E4%BB%8B.docx)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E7%AE%80%E4%BB%8B.docx)

@@ -17,4 +17,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Linux内存相关知识](https://pan.baidu.com/s/1dFKe4X7)
+[Linux内存相关知识](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Linux%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Linux%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86.pdf)

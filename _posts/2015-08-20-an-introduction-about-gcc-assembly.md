@@ -20,4 +20,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[学习GCC内联汇编](https://pan.baidu.com/s/1dFKe4X7)
+[学习GCC内联汇编](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/%E5%AD%A6%E4%B9%A0GCC%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/%E5%AD%A6%E4%B9%A0GCC%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96.pdf)

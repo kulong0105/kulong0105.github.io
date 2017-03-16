@@ -31,4 +31,6 @@ tags:
 <!--more-->
 																			
 完整文章请转到下面link:
-[Linux tuned服务简介](https://pan.baidu.com/s/1dFKe4X7)
+[Linux tuned服务简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/tuned%E6%9C%8D%E5%8A%A1%E7%AE%80%E4%BB%8B.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/tuned%E6%9C%8D%E5%8A%A1%E7%AE%80%E4%BB%8B.pdf)

@@ -15,4 +15,6 @@ tags:
 <!--more-->
 
 完整文章请转到下面link:
-[Xen网络解析](https://pan.baidu.com/s/1dFKe4X7)
+[Xen网络解析](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/Xen%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90.pdf)
+
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/Xen%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90.pdf)
