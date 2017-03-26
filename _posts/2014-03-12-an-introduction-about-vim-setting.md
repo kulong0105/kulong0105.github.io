@@ -32,8 +32,8 @@ tags:
 或者直接”yum install ctags”
 
 常用命令列表：
-1）`$ ctags –R *`   (为Linux系统Shell提示符)
-2）`$ vim –t tag`   (请把tag替换为您欲查找的变量或函数名)
+1）ctags –R \*
+2）vim –t tag 		(请把tag替换为您欲查找的变量或函数名)
 3）：ts				(ts 助记字：tags list, “:”开头的命令为vim中命令行模式命令)
 4）：tp				(tp 助记字：tags preview)
 5）：tn				(tn 助记字：tags next) 
@@ -66,7 +66,7 @@ map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 说明：
 在vim中配置ctrl+F12组合快捷键。所以我们也可以进入代码根目录后，打开vim，按下Ctrl-F12快捷键自动生成tags文件，命令执行完后，会在源代码目录生成tags文件。
 
-注：在我机子上不能用 map <C-F12>,用map <F12>倒是可以。
+注：在我机子上不能用 `map <C-F12>`,用`map <F12>`倒是可以。
 
 更多功能通过命令man ctags或在Vim命令行下运行help ctags查询。
 
@@ -111,7 +111,7 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags"  "将taglist与ctags关联
 gnu global是一个类似cscope的工具，也能提供源文件之间的交叉索引。 其独到之处在于，当你生成索引文件以后，再修改整个项目里的一个文件，然后增量索引的过程非常快。 
 
 安装步骤：(或者直接”yum install global”)
-1) 在http://www.gnu.org/software/global/download.html下载源码包进行安装（./configure && make && make install)
+1) 在http://www.gnu.org/software/global/download.html下载源码包进行安装（./configure && make && sudo make install)
 2) 在安装目录拷贝两个文件gtags.vim和gtags-cscope.vim到~/.vim/plugin目录下
 3) 在/etc/vimrc中添加"nmap hm ：GtagsCursor<CR>"
 
@@ -135,6 +135,16 @@ $ global -u
 ```
 
 global -u这个命令会自动向上找到project/GTAGS，并更新其内容。而gtags相对于cscope的优势就在这里.
+
+注意:
+gtags 默认情况下只支持6种语言(C, C++, Yacc, Java, PHP4 and assembly), 为了让其支持更多语言，可以在编译时指定如下：
+
+```
+$ ./configure --with-exuberant-ctags=/usr/bin/ctags
+$ make
+$ sudo make install
+```
+安装完成之后，可以使用命令`gtags --config` 进行确认.
 
 
 ### 4. OmniCppComplete安装
@@ -321,3 +331,7 @@ noremap wp  :call CycleBuffer(0):
 ### 7. 显示效果
 
 ![vim_image](https://github.com/kulong0105/kulong0105.github.io/blob/master/assets/img/vim.jpg?raw=true)
+
+
+### 8. 彩蛋
+相关配置已打包，可以直接到github上去clone：https://github.com/kulong0105/vim
