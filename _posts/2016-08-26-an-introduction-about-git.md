@@ -187,7 +187,8 @@ Git diff $commit1~ $commit2
 
 ```
 git show v1.0	   #查看标签信息
-git show $commit:tests/xfstest
+git show $commit:tests/xfstest  #查看某个commit时的某个文件内容
+git show --format=fuller --stat --patch -w -M  #-w表示忽略所有空格引起的变化
 ```
 
 
@@ -423,6 +424,7 @@ $ git bisect good v2.3.0    # v2.3.0 was the last version tested that was good
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lg2 = log --color --graph --pretty=format:'%h %ad | %s%d [%an]' --abbrev-commit --date=short
 	sw = show --pretty=raw
+	sw2 = show --format=fuller --stat --patch -w -M
     st = status
     co = checkout
     ci = commit
