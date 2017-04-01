@@ -589,6 +589,15 @@ Host allen
 sync
 ```
 
+### sysctl
+
+```
+sysctl -a #查看系统所有配置参数
+sysctl -n kernel.hostname #打印参数值
+sudo sysctl -w kernel.hostname="kulong0105" #改变参数值
+sudo sysctl -p  #添加设置到/etc/sysctl.conf,使其重启后仍然有效
+```
+
 
 ### sar
 
