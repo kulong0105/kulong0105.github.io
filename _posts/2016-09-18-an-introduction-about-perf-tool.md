@@ -1002,6 +1002,87 @@ renyl@localhost ~]$
 ```
 
 
+### ftrace
+
+性能分析工具，在内核态工作，用户可以通过 debugfs 接口来控制和使用.
+
+设置步骤：
+```
+# cd /sys/kernel/debug
+# cd tracing/
+# echo 1 >tracing_on
+# echo 1 >tracing_enabled
+# echo 1 >events/enable
+# echo block irq  ext3 net kmem writeback mce sched timer >../set_event
+# cat trace
+```
+注：tracing_on和tracing_enabled同时为1才能进行跟踪。
+
+
+相关文件说明：
+
+| 序号 | 文件 | 说明 |
+| --- | --- | --- |
+| 1  | available_tracers | 可以tracing的内容方式
+| 2  | current_tracer | 当前正在跟踪的内容方式
+| 3  | available_filter_functions | 可跟踪的函数
+| 4  | set_ftrace_filter | 设置当前跟踪的函数
+| 5  | set_ftrace_notrace | 设置不跟踪的函数
+| 6  | set_event | 跟踪的事件
+
+注：当使用事件跟踪时，不需要设置current_tracer，使用nop即可。
+
+
+### SystemTap
+
+SystemTap是一个诊断Linux系统性能或功能问题的工具
+
+一个简单的实例：
+```
+global count=0
+global time_begin=0
+global time_end=0
+global total=0
+
+probe begin {
+        printf("detecing start......\n")
+}
+
+
+probe kernel.function("sys_ioctl"){
+        if(execname()=="qemu-kvm")
+        {
+                time_begin=get_cycles();
+                count++
+        }
+}
+
+probe kernel.function("sys_ioctl").return{
+        if(execname()=="qemu-kvm")
+        {
+                time_end=get_cycles()
+                total=total+time_end-time_begin
+        }
+}
+
+probe timer.ms(1000){
+        printf("sys_ioctl called %d time.\n",count)
+}
+
+probe end {
+        printf("**************************************\n")
+        printf("sys_ioctl all called %d times.\n",count)
+        printf("total time: %d cycles\n",total)
+        printf("detecting finished!\n")
+}
+```
+
+使用方法：
+1）# stap -ve 'probe module("kvm").function("kvm_io_bus_write") {printf("hello\n")}'
+2）# service systemtap  compile    //编译/etc/systemtap/ script.d/下的文件
+3）# /usr/share/qemu-kvm/simpletrace.py --no-header/usr/share/qemu-kvm/trace-events trace.log    //解析qemu生成的log文件
+
+
 ### virt-top / xentop
 
 显示kvm/xen的CPU和memory信息
@@ -1168,9 +1249,17 @@ auxv       cmdline     cpuset           exe      gid_map  limits   maps       mo
 ```
 * cmdline: 启动命令行
 * comm: 程序名字
+* oom_score: 高数值优先被杀
 * oom_score_adj: 可以调正OOM的优先级
 * maps: 内存映射
 * stack: 栈调用
+
+
+### sysrq-trigger
+
+```
+# echo f > /proc/sysrq-trigger //强制启动OOM-Killer，至少一个进程会被杀
+```
 
 
 ### vm
