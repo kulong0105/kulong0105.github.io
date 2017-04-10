@@ -124,6 +124,17 @@ if语句
 ```
 
 
+### cpupower
+
+查看/设置CPU相关信息
+
+```
+# cpupower frequency-info //查看P-State相关信息
+# cpupower idle-info  //查看C-State相关信息
+# cpupower idle-set   //设置C-State相关状态
+```
+
+
 ### cp && rm
 
 说明:
@@ -221,6 +232,14 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 ```
 # hash -l  //list所缓存的路径
 # hash -r  //清空缓存
+```
+
+
+### ipmitool
+
+说明：查看系统电力消耗
+```
+# ipmitool sensor
 ```
 
 ### grep
@@ -338,7 +357,7 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 
 查看模块xfs的相关信息
 ```
-# modinfo xfx
+# modinfo xfs
 ```
 
 
@@ -478,6 +497,13 @@ pfmon –e L2D_MISSES ./test
 | 6 | perf stat -e cache-misses  -p 4625 | 采集进程号为4625的cache-misses数 |
 | 7 | perf record -q -ag --realtime=1 -m 256 -- sleep 10 |
 
+
+### powertop
+
+查看：查看进程电力消耗相关信息
+```
+# powertop
+```
 
 ### qume-img
 
@@ -895,3 +921,46 @@ gpgcheck=0
 # ls | xargs -i mv {} {}.bak         --- -i 选项告诉 xargs 用每项的名称替换{}
 # find -name ".svn" |xargs rm -rf
 ```
+
+### xfs
+
+备份与恢复：
+```
+# xfsdump -f /mountdir/backup  -L lable  -M lable /dev/sda3
+# xfsrestore -f /mountdir/backup  ./new_dir
+```
+
+配额控制：
+```
+# mount -o usrquota,grpquota  /dev/xxx  /mountdir
+# xfs_quota -x -c 'limit bhard=500m someuser' /mountdir
+# xfs_quota -x -c "report"
+# repquota -ug /mountdir
+```
+
+拷贝：
+```
+# xfs_copy /dev/sdc1 /dev/sdc2
+```
+
+注：
+1)使用xfs_copy可以拷贝XFS文件系统，用户可以将一个或几个文件系统拷贝到磁盘分区或文件中。
+2)如果多个目标，可并行。
+3)目标文件直接被格式化xfs文件系统
+4)如果原始文件系统小于新文件系统，建议使用mkfs.xfs/xfsdump/xfsrestore
+
+
+冷冻与恢复：
+```
+# xfs_freeze -f /mountdir    //暂停
+# xfs_freeze -u /mountdir    //恢复
+```
+注：源文件系统应该被卸载或者只读被挂载或者被freeze，目标文件系系统应该被卸载。
+
+
+修复：
+```
+# xfs check /dev/sdc1
+```
+注：xfs文件系统的检测和修复在运行xfs_check 、xfs_repair之前，被检测的文件系统应该被卸载或者只读被挂载，否则文件系统会崩溃。
+
