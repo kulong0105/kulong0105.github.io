@@ -12,8 +12,11 @@ bundle exec jekyll server
 
 ## how to put the picture into middle centre
 
-add html flag like this "<img src="" style="display:block;margin:auto"/>"
+<div style="text-align: center">
+<img src="$url"/>
+</div>
 
+replace $url var with real url
 
 ## how to create a gallery post
 
