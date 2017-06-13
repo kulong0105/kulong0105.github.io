@@ -21,4 +21,4 @@ tags:
 完整文章请转到下面link:
 [MySQL简介](https://github.com/kulong0105/kulong0105.github.io/blob/master/documents/MySQL%E7%AE%80%E4%BB%8B.pdf)
 
-[MySQL简介](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/MySQL%E7%AE%80%E4%BB%8B.pdf)
+[下载链接](https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/MySQL%E7%AE%80%E4%BB%8B.pdf)
