@@ -165,104 +165,104 @@ iptables针对数据包有如下几种处理方式:
 ## iptables用法
 
 * 查看现有规则
-```
+```bash
 # iptables -L -n -v --line-numbers
 ```
 
 * 删除所有现有规则
-```
+```bash
 # iptables -F
 ```
 
 * 设置默认的 chain 策略
-```
+```bash
 # iptables -P INPUT DROP
 # iptables -P FORWARD DROP
 # iptables -P OUTPUT DROP
 ```
 
 * 阻止某个特定的 IP 地址
-```
+```bash
 # iptables -A INPUT -s $ip_addr -j DROP
 ```
 
 * 允许全部入站的SSH
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 只允许某个特定网络进来的 SSH
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp -s 192.168.200.0/24 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 
 * 允许入站的HTTP
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 多端口（允许进来的 SSH、HTTP 和 HTTPS）
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp -m multiport --sports 22,80,443 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许出站的SSH
-```
+```bash
 # iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许出站的SSH，但仅访问某个特定的网络
-```
+```bash
 # iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许出站的 HTTPS
-```
+```bash
 # iptables -A OUTPUT -o eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 对进来的 HTTPS 流量做负载均衡
-```
+```bash
 # iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 0 -j DNAT --to-destination 192.168.1.101:443
 # iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 1 -j DNAT --to-destination 192.168.1.102:443
 # iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 2 -j DNAT --to-destination 192.168.1.103:443
 ```
 
 * 允许从内部向外部PING
-```
+```bash
 # iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
 # iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 ```
 
 * 允许从外部向内部PING
-```
+```bash
 # iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 # iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
 ```
 
 * 允许转发除ICMP协议以外的所有数据包
-```
+```bash
 # iptables -A FORWARD -p ! icmp -j ACCEPT
 ```
 NOTE: 使用“！”可以将条件取反
 
 
 * 允许环回（loopback）访问
-```
+```bash
 # iptables -A INPUT -i lo -j ACCEPT
 # iptables -A OUTPUT -o lo -j ACCEPT
 ```
 
 * 允许 packets 从内网访问外网
-```
+```bash
 # iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 ```
 NOTE:
@@ -270,27 +270,26 @@ NOTE:
 2) enable forward function: echo 1 > /proc/sys/net/ipv4/ip_forward
 
 
-
 * 允许外出的DNS
-```
+```bash
 # iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
 # iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
 ```
 
 * 允许某个特定网络 rsync 进入本机
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp -s 192.168.101.0/24 --dport 873 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 873 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许 Sendmail 或 Postfix
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 25 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许 IMAP 和 IMAPS
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp --dport 143 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 143 -m state --state ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --dport 993 -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -298,7 +297,7 @@ NOTE:
 ```
 
 * 允许 POP3 和 POP3S
-```
+```bash
 # iptables -A INPUT -i eth0 -p tcp --dport 110 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 110 -m state --state ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --dport 995 -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -306,30 +305,30 @@ NOTE:
 ```
 
 * 防止 DoS 攻击
-```
+```bash
 iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
 ```
 NOTE: 将连接限制到每分钟 25 个，上限设定为100
 
 
 * 设置 422 端口转发到 22 端口
-```
+```bash
 # iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport 422 -j DNAT --to-destination 192.168.102.37:22
 # iptables -A INPUT -i eth0 -p tcp --dport 422 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp --sport 422 -m state --state ESTABLISHED -j ACCEPT
 ```
 或者
-```
+```bash
 # iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525		
 ```
 
 * 屏蔽指定MAC地址
-```
+```bash
 # iptables -A INPUT -m mac --mac-source $mac_addr -j DROP		
 ```
 
 * 更换源IP地址
-```
+```bash
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3-192.168.5.5
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/255.255.255.0 -o eth0 -j MASQUERADE
@@ -340,14 +339,14 @@ NOTE：
 
 
 * 限制并发连接数
-```
+```bash
 # iptables -A INPUT -p tcp --syn --dport 22 -m connlimit --connlimit-above 3 -j REJECT		
 ```
 NOTE: 限制每个客户端不超过 3 个连接。
 
 
 * 保存iptables规则
-```
+```bash
 # iptables-save
 ```
 NOTE: 情况下，iptables 规则的操作会立即生效。但由于规则都是保存在内存当中的，
@@ -355,7 +354,7 @@ NOTE: 情况下，iptables 规则的操作会立即生效。但由于规则都�
 
 
 * 为丢弃的包做日志（Log）
-```
+```bash
 # iptables -N LOGGING //新建LOGGING chain
 # iptables -A INPUT -j LOGGING
 # iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
@@ -365,4 +364,5 @@ NOTE: 情况下，iptables 规则的操作会立即生效。但由于规则都�
 
 ## 参考
 [iptables防火墙原理知多少](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
+
 [25 个常用的 Linux iptables 规则](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
