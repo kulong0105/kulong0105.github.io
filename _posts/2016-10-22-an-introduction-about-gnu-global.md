@@ -41,13 +41,13 @@ $ htags -sofFnvaIh #或者 htags --suggest2
 * 修改DocumentRoot所指向的Web目录，将其改为htags命令生成的HTML目录
 
 ```
-DocumentRoot "/home/renyl/repo/irqbalance/HTML
+DocumentRoot "/home/renyl/repo/irqbalance/HTML"
 ```
 
 * 修改"ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"" 变为"ScriptAlias /cgi-bin/ <htags命令生成的cgi-bin目录>"
 
 ```
-ScriptAlias /cgi-bin/ "/home/renyl/repo/irqbalance/HTML/cgi-bin
+ScriptAlias /cgi-bin/ "/home/renyl/repo/irqbalance/HTML/cgi-bin"
 ```
 
 * 把配置文件中原有的/var/www/cgi-bin/都替换为<htags命令生成的HTML目录>
