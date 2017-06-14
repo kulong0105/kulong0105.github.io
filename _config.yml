@@ -13,6 +13,10 @@ permalink: /:categories/:year/:month/:day/:title
 markdown: kramdown
 kramdown:
   input: GFM
+  extensions:
+  - autolink
+  - footnotes
+  - smart
   auto_ids: true
   syntax_highlighter: rouge
 
