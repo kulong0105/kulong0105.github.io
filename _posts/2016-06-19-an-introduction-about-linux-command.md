@@ -335,21 +335,15 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 
 ### lscpu
 
-说明：查看CPU相关信息
+说明：查看CPU个数及相关信息
 
 ```
+# cat /proc/cpuinfo
 # lscpu
-```
-配置文件：cat /sys/device/system/cpu/cpu0/cache/index
-
-```
-
-查看CPU个数：
-```
 # nproc
 # getconf _NPROCESSORS_CONF
-# cat /proc/cpuinfo
 ```
+配置文件：cat /sys/device/system/cpu/cpu0/cache/index
 
 
 ### lshw
