@@ -124,6 +124,14 @@ if语句
 ```
 
 
+### cpio
+
+打包压缩：
+```
+cpio -o -H newc ./* | gzip -n 9 > abc.cgz
+```
+
+
 ### cpupower
 
 查看/设置CPU相关信息
@@ -257,6 +265,14 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 注：/dev/dvdrw1 为/dev目录下dvd设备名称，具体名称要到/dev目录下去查看。
 
 
+### gzip
+
+解压缩：
+```
+# gzip abc.cgz -dc | cpio -idumv
+```
+
+
 ### ipcs
 
 说明：共享内存查看
@@ -303,6 +319,20 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 ```
 
 
+### lsblk
+
+说明：
+```
+# lsblk
+```
+
+查看磁盘是HDD还是SSD
+```
+# lsblk -d -o name,rota /dev/sda
+# cat /sys/block/sda/queue/rotational
+```
+
+
 ### lscpu
 
 说明：查看CPU相关信息
@@ -311,6 +341,15 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # lscpu
 ```
 配置文件：cat /sys/device/system/cpu/cpu0/cache/index
+
+```
+
+查看CPU个数：
+```
+# nproc
+# getconf _NPROCESSORS_CONF
+# cat /proc/cpuinfo
+```
 
 
 ### lshw
@@ -394,6 +433,29 @@ mount UUID=bf0c50bb-8b71-45f8-91e2-f197e2f8b7c9 /home/renyl/，如果能挂载�
 ```
 
 
+### mv
+
+-T选项的用法：
+
+```
+# touch fileA
+# mkdir dirA
+# ln -sf dirA  linkA
+# mv fileA linkA  => fileA will be put into dirA
+# mv -T fileA linkA => file A will be rename linkA
+```
+
+```
+# touch fileA
+# mkdir dirA
+# mv fileA dirA
+# mkdir dirB
+
+# mv dirA dirB    => dirA will be put into dirB
+# mv -T dirA dirB => rename dirA to dirB, dirB must be a empty directory
+```
+
+
 ### netcat
 
 在server端执行
@@ -406,6 +468,15 @@ mount UUID=bf0c50bb-8b71-45f8-91e2-f197e2f8b7c9 /home/renyl/，如果能挂载�
 ```
 # nc  ipaddr  port
 # echo  "command" | nc ipaddress portnum
+```
+
+
+### ntpdate
+
+说明：同步时间并设置墙上时间
+```
+# ntpdate cn.pool.ntp.org
+# hwclock -w
 ```
 
 
@@ -595,7 +666,7 @@ IO测定：
 * 端口转发
 
 ```
-# ssh –g –L  [bind_address:]port:host:hostport <hostname>
+# ssh -g -L  [bind_address:]port:host:hostport <hostname>
 ```
 说明：
 1）表示访问IP地址为bind_address、端口号为port的连接会被SSH转发到IP地址为host、端口号为hostport的应用。
@@ -605,7 +676,7 @@ IO测定：
 
 Ex：(访问193.168.246.254:80端口会被转发到193.168.197.232:80上)
 ```
-ssh –g –L 193.168.246.254:80:193.168.197.232:80  193.168.197.232
+ssh -g -L 193.168.246.254:80:193.168.197.232:80  193.168.197.232
 ```
 
 或者在~/.ssh/config文件进行如下配置
@@ -874,11 +945,24 @@ yum相关命令
 | 12 | virsh -c qemu+ssh://IP/system list | 查看远程机器的Guest |
 
 
+### virt-what
+
+说明：检测当前是否在虚拟机环境下
+```
+# virt-what
+```
+
+或者
+```
+# cat /proc/cpuinfo | grep hypervisor
+```
+
+
 ### watch
 
 说明：查看变化信息
 ```
-# watch –d -n1 du –m file1      //-d表示显示后面命令执行的变化
+# watch -d -n1 du -m file1      //-d表示显示后面命令执行的变化
 ```
 
 
