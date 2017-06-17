@@ -1,0 +1,53 @@
+每次上下文切换都换刷新寄存器和cache/TLB
+
+xfs 在单线程下创建和删除大数量的小文件的情况下，性能表现不够好，更加适合大文件操作
+
+页面调度(paging)和交换(swaping)是不同的，页面调度移动个别分页到磁盘上的swap空间，
+交换是一个较大的操作，在这个过程中移动一个进程的整个地址空间到swap空间
+
+创建swap分区比创建swap文件性能更好，因为IO到swap分区绕过了文件系统和所有涉及写入一个文件的开销。
+
+
+THP 被用来映射所有的内核地址空间到单个hugepage，减少TLB压力。
+也能为应用程序分配动态内存之前，用来映射匿名内存空间。
+
+THP不同与hugepage，在启用的时候，通过内核动态地分配和管理，同时能够从内存中换出。
+
+THP的使用：
+grep AnonHugePages /proc/meminfo
+
+但个node上的hugepage使用:
+cat /sys/devices/system/node/node1/meminfo | grep Huge
+
+
+数据库系统，选择 deadline 性能更好些
+
+较大的请求队列可能会给写提供很多小文件的工作负载较高的吞吐量
+跟bs大小有关,bs越大，nr_requests应该越小
+echo 64/128/2048/8192  >/sys/block/sdb/queue/nr_requests
+
+在大的流读取情况下，增加预读取buffer的大小可能会增加性能
+echo 256 >/sys/block/sdx/queue/read_ahead_kb
+
+VM: raw文件提供最好的性能，qcow2镜像更小，并且支持snapshot功能
+
+
+#Docker
+## install docker on Centos6.x
+    To avoid having to use sudo when you use the docker command, create a Unix group called docker and add users to it
+    ====
+    sudo groupadd docker
+    sudo usermod -aG docker $your_username
+    === 
+    https://docs.docker.com/engine/installation/linux/centos/
+## config
+    - /etc/sysconfig/docker  (--insecure-registry, be set in client)
+    - /var/lib//docker
+## search
+    - curl http://$IP:5000/v1/search
+    - docker search $IP:5000/$images
+    Note: 
+    registry:2 does not support search, need to run this `docker pull distribution/registry:master` if want to use search function. but do some testings, it is also not OK.
+## registry:
+    - v1: docker run -d --restart=always -e SETTINGS_FLAVOR=dev -e STORAGE_PATH=/mnt/registry -v /docker/registry:/mnt/registry  -p 5000:5000 registry
+    - v2: docker run -d -v /docker/registry2:/var/lib/registry  -p 5000:5000 registry:2
