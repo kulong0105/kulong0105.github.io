@@ -423,8 +423,9 @@ $ git bisect good v2.3.0    # v2.3.0 was the last version tested that was good
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lg2 = log --color --graph --pretty=format:'%h %ad | %s%d [%an]' --abbrev-commit --date=short
-	sw = show --pretty=raw
-	sw2 = show --format=fuller --stat --patch -w -M
+    sw = show --pretty=raw
+    sw2 = show --format=fuller --stat --patch -w -M
+    sw3 = show --format=fuller --stat --patch -w -M --word-diff-regex=.
     st = status
     co = checkout
     ci = commit
