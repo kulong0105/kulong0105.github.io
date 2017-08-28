@@ -565,10 +565,10 @@ Average:            0       689      0.00      0.02      0.00         0
 [renyl@localhost ~]$
 ```
 
-runq-sz: 运行队列的长度
-plist-sz: 在任务列表中的数量
-ldavg-x: 过去1，5，15分钟的系统平均负载
-blocked: 被blocked的进程数量，等待IO完成
+* runq-sz: 运行队列的长度
+* plist-sz: 在任务列表中的数量
+* ldavg-x: 过去1，5，15分钟的系统平均负载
+* blocked: 被blocked的进程数量，等待IO完成
 
 
 显示内存统计数据
@@ -1083,13 +1083,15 @@ probe end {
 3）# /usr/share/qemu-kvm/simpletrace.py --no-header/usr/share/qemu-kvm/trace-events trace.log    //解析qemu生成的log文件
 
 
-### virt-top / xentop
+### virt-top / xentop / iotop
 
-显示kvm/xen的CPU和memory信息
+virt-top/xentop: 显示kvm/xen的CPU和memory信息
+iotop: 显示进程读写磁盘的信息
 
 ```
-virt-top –b –d $interval –n $count
-xentop  –b –d $interval –n $count
+virt-top -b -d $interval -n $count
+xentop  -b -d $interval -n $count
+iotop  -b -d $interval -n $count
 ```
 * virt-top: 采集集的是机器上所有cpu的平均利用率（A%），想要计算出guest的cpu平均利用率，需要进行如下计算：B%=A% *（总共cpu/分配给Guest的cpu）
 * xentop采集的是分配给Guest的cpu的总利用率
