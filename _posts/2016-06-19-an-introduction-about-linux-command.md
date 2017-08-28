@@ -242,6 +242,10 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # hash -r  //清空缓存
 ```
 
+### id / whoami / groups
+
+说明： 显示用户id和gid
+
 
 ### ipmitool
 
@@ -353,6 +357,19 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # lshw –c display
 # lspci –vnn
 ```
+
+
+### lsos
+
+说明：利用lsof监控系统进程与程序
+
+| 序号|	命令| 说明|
+| --- | --- | --- |
+| 1 | lsof /home/renyl/testfile | 查看文件被哪个进程在使用 |
+| 2 | lsof -c processA | 显示进程A打开的文件 |
+| 3 | lsof -p PID | 根据进程ID显示打开的文件 |
+| 4 | lsof -g GPID | 根据进程组IP显示打开的文件|
+| 5 | lsof -i tcp:25 | 查看指定协议/端口号的文件|
 
 
 ### lspci
