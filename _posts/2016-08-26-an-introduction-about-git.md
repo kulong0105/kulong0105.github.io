@@ -127,7 +127,7 @@ git clone git@github.com:kulong0105/mutt.git
 ```
 git checkout -b dev              #创建新的dev分支
 git checkout -b dev  origin/dev	 #创建远程origin的dev分支到本地。
-git checkout  -- hello.c	     #放弃工作区的修改，让这个文件回到最近一次git commit或git add时的状态。
+git checkout  -- hello.c         #放弃工作区的修改，让这个文件回到最近一次git commit或git add时的状态。
 git checkout $commit -- hello.c	 #回撤到$commit版本下hello.c文件的内容
 ```
 
@@ -135,7 +135,7 @@ git checkout $commit -- hello.c	 #回撤到$commit版本下hello.c文件的内�
 ### branch
 
 ```
-git branch	                    #查看本地分支
+git branch                      #查看本地分支
 git branch -r                   #查看远程分支
 git branch -vv                  #产看本地和远程分支的track
 git branch -d  my_branch        #删除分支
@@ -159,7 +159,7 @@ git config --list
 ### add
 
 ```
-git add  hello.c	#添加文件到缓存区
+git add hello.c     #添加文件到缓存区
 git add -p          #允许你交互地选择你想要提交的内容
 git add -u
 git add --all
@@ -175,9 +175,9 @@ git rm test.txt  	#删除文件
 ### diff
 
 ```
-git diff  readme.c	         #查看工作区和缓存区中的区别
-git diff HEAD -- hello.c	 #查看工作区和版本库里面最新版本的区别
-git diff 0cbba12 -- hello.c	 #查看工作区和版本库里"ocabba12"的区别
+git diff readme.c            #查看工作区和缓存区中的区别
+git diff HEAD -- hello.c     #查看工作区和版本库里面最新版本的区别
+git diff 0cbba12 -- hello.c  #查看工作区和版本库里"ocabba12"的区别
 git diff $branch $filename   #查看branch分支与当前分支$filename文件的区别
 Git diff $commit1~ $commit1
 Git diff $commit1~ $commit2
@@ -186,9 +186,9 @@ Git diff $commit1~ $commit2
 ### show
 
 ```
-git show v1.0	   #查看标签信息
-git show $commit:tests/xfstest  #查看某个commit时的某个文件内容
-git show --format=fuller --stat --patch -w -M  #-w表示忽略所有空格引起的变化
+git show v1.0                                     #查看标签信息
+git show $commit:tests/xfstest                    #查看某个commit时的某个文件内容
+git show --format=fuller --stat --patch -w -M     #-w表示忽略所有空格引起的变化
 ```
 
 
@@ -222,11 +222,11 @@ git log -L 10,15:$filename #允许指定文件中的某些行,有点像带焦点
 ### commit
 
 ```
-git commit -a -s -m "add file"	-a：表示所有文件。
+git commit -a -s -m "add file"
 git commit --amend
 ```
--a：表示所有文件。
--s：表示在patch的头部增加Signed-off-by。
+* -a：表示所有文件。
+* -s：表示在patch的头部增加Signed-off-by。
 
 
 ### remote
@@ -236,6 +236,7 @@ git remote add origin https://github.com/kulong0105/Test.git
 git remote add origin git://github.com/kulong0105/Test.git
 git remote -v
 git remote prune origin	 #删除stale remote-tracking branches
+git remote set-url origin $repo_url
 ```
 说明:
 * 使用https协议：每次push都要输入用户名和密码。可以让git记录密码：使用命令`git config --global credential.helper wincred`
@@ -304,20 +305,20 @@ git push \[远程主机名\] \[ 本地分支名\]:\[远程分支名]
 
 ```
 git push origin :dev          #删除远程dev分支
-git push -u origin master	  #首次push时需要加参数-u，表示建立“追踪关系"
+git push -u origin master     #首次push时需要加参数-u，表示建立“追踪关系"
 git push
 git push -f                   #强制push到远程分支
-git push origin v1.0	      #默认情况下，不会主动推送标签到远程。该功能完成推送v1.0标签到远程
-git push origin --tags	      #一次性推送全部尚未推送到远程的本地标签
+git push origin v1.0          #默认情况下，不会主动推送标签到远程。该功能完成推送v1.0标签到远程
+git push origin --tags        #一次性推送全部尚未推送到远程的本地标签
 ```
 
 
 ### reset
 
 ```
-git reset  HEAD  hello.c      	#撤销缓存区的提交。
-git reset --hard $commit_id	    #根据commit_id恢复到某个版本库
-git reset --hard HEAD~$NUM      #恢复到某个版本库，HEAD表示恢复到最新的版本库，NUM从1开始，若为1表示最新版本库的前一个版本。
+git reset HEAD hello.c        #撤销缓存区的提交。
+git reset --hard $commit_id   #根据commit_id恢复到某个版本库
+git reset --hard HEAD~$NUM    #恢复到某个版本库，HEAD表示恢复到最新的版本库，NUM从1开始，若为1表示最新版本库的前一个版本。
 ```
 
 
@@ -346,11 +347,11 @@ git rev-list -n3 $commit
 ### stash
 
 ```
-git stash	    #把分支当前工作现场"储藏"起来
-git stash -p    #允许你交互地选择你想要存藏的内容
-git stash list	#查看“储藏”的工作现场
-git stash pop	#恢复工作现场，且删除“储藏”的工作现场
-git stash apply  &&  git stash drop	 #分两步做达到同样的效果
+git stash                         #把分支当前工作现场"储藏"起来
+git stash -p                      #允许你交互地选择你想要存藏的内容
+git stash list                    #查看“储藏”的工作现场
+git stash pop                     #恢复工作现场，且删除“储藏”的工作现场
+git stash apply && git stash drop #分两步做达到同样的效果
 git stash apply stash@{0}
 ```
 
@@ -358,10 +359,10 @@ git stash apply stash@{0}
 ### tag
 
 ```
-git tag v1.0 $commit_id	    #给某个版本打标签
-git tag	                    #查看标签标签不是按时间顺序列出，而是按字母排序的
-git tag -d v1.0	            #删除标签
-git tag -d v2.0 && git push origin :refs/tags/v2.0	#删除远程标签
+git tag v1.0 $commit_id	                            #给某个版本打标签
+git tag	                                            #查看标签标签不是按时间顺序列出，而是按字母排序的
+git tag -d v1.0	                                    #删除标签
+git tag -d v2.0 && git push origin :refs/tags/v2.0  #删除远程标签
 ```
 
 
@@ -369,8 +370,8 @@ git tag -d v2.0 && git push origin :refs/tags/v2.0	#删除远程标签
 
 ```
 git format-patch -1
-git format-patch -s $commit_id	     #-s表示从当前commit到head之前所有的commit（不包括当前commit）
-git format-patch -n2 -s $commit_id	 #表示从之前的某个commit到当前的commit(包括当前的commit)
+git format-patch -s $commit_id       #-s表示从当前commit到head之前所有的commit（不包括当前commit）
+git format-patch -n2 -s $commit_id   #表示从之前的某个commit到当前的commit(包括当前的commit)
 ```
 
 * 遵守: one thing one commit
@@ -457,7 +458,7 @@ $ git bisect good v2.3.0    # v2.3.0 was the last version tested that was good
 #   envelope-sender = yilong.ren@sky-data.cn
 
     to = yilong.ren@sky-data.cn
-    cc = ci-developer@sky-data.cn
+    cc = team_ci@sky-data.cn
 ```
 
 
