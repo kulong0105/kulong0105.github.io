@@ -630,6 +630,11 @@ IO测定：
 # rpm -ivh /home/qemu-kvm-0.12.1.2-2.209.el6.x86_64.rpm  --nodeps
 ```
 
+说明: check postinstall script
+```
+# rpm -qp --scripts xxx.rpm
+```
+
 
 ### rpm2cpio
 
