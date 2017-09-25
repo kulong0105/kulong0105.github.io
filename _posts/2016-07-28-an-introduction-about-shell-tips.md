@@ -87,11 +87,13 @@ while read ip
 do
 	ssh $ip "echo hello"
 done <<<"$ips"
+```
 
 结果：只会输出一次hello
 说明：由于使用了"<<<" 这种格式，while循环语句里如果使用了ssh命令，将自动重置输入流，导致后面的变量都无法获取。
 
 解决方法1: 使用for循环代替while循环，可以解决此问题
+
 ```
 for ip in $ips
 do
@@ -101,6 +103,7 @@ done
 
 
 解决方法2: 使用其他文件描述符号
+
 ```
 while read -u10 ip
 do
