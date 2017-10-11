@@ -139,27 +139,27 @@ iptables针对数据包有如下几种处理方式:
 <img src="https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/pictures/iptables_4.jpg"/>
 </div>
 
-1) [-t 表名]：该规则所操作的哪个表，可以使用filter、nat等，如果没有指定则默认为filter
-2) -A：新增一条规则，到该规则链列表的最后一行
-3) -I：插入一条规则，原本该位置上的规则会往后顺序移动，没有指定编号则为1
-4) -D：从规则链中删除一条规则，要么输入完整的规则，或者指定规则编号加以删除
-5) -R：替换某条规则，规则替换不会改变顺序，而且必须指定编号。
-6) -P：设置某条规则链的默认动作
-7) -nL：-L、-n，查看当前运行的防火墙规则列表
-8) chain名：指定规则表的哪个链，如INPUT、OUPUT、FORWARD、PREROUTING等
-9) [规则编号]：插入、删除、替换规则时用，—line-numbers显示号码
-10)[-i|o 网卡名称]：i是指定数据包从哪块网卡进入，o是指定数据包从哪块网卡输出
-11)[-p 协议类型]：可以指定规则应用的协议，包含tcp、udp和icmp等
-12)[-s 源IP地址]：源主机的IP地址或子网地址
-13)[--sport 源端口号]：数据包的IP的源端口号
-14)[-d目标IP地址]：目标主机的IP地址或子网地址
-15)[--dport目标端口号]：数据包的IP的目标端口号
-16)-m：extend matches，这个选项用于提供更多的匹配参数，如：
-17)-m state —state ESTABLISHED,RELATED
-18)-m tcp —dport 22
-19)-m multiport —dports 80,8080
-20)-m icmp —icmp-type 8
-21)<-j 动作>：处理数据包的动作，包括ACCEPT、DROP、REJECT等
+1) [-t 表名]：该规则所操作的哪个表，可以使用filter、nat等，如果没有指定则默认为filter  
+2) -A：新增一条规则，到该规则链列表的最后一行  
+3) -I：插入一条规则，原本该位置上的规则会往后顺序移动，没有指定编号则为1  
+4) -D：从规则链中删除一条规则，要么输入完整的规则，或者指定规则编号加以删除  
+5) -R：替换某条规则，规则替换不会改变顺序，而且必须指定编号。  
+6) -P：设置某条规则链的默认动作  
+7) -nL：-L、-n，查看当前运行的防火墙规则列表  
+8) chain名：指定规则表的哪个链，如INPUT、OUPUT、FORWARD、PREROUTING等  
+9) [规则编号]：插入、删除、替换规则时用，—line-numbers显示号码  
+10)[-i|o 网卡名称]：i是指定数据包从哪块网卡进入，o是指定数据包从哪块网卡输出  
+11)[-p 协议类型]：可以指定规则应用的协议，包含tcp、udp和icmp等  
+12)[-s 源IP地址]：源主机的IP地址或子网地址  
+13)[--sport 源端口号]：数据包的IP的源端口号  
+14)[-d目标IP地址]：目标主机的IP地址或子网地址  
+15)[--dport目标端口号]：数据包的IP的目标端口号  
+16)-m：extend matches，这个选项用于提供更多的匹配参数，如：  
+17)-m state —state ESTABLISHED,RELATED  
+18)-m tcp —dport 22  
+19)-m multiport —dports 80,8080  
+20)-m icmp —icmp-type 8  
+21)<-j 动作>：处理数据包的动作，包括ACCEPT、DROP、REJECT等   
 
 
 ## iptables用法
