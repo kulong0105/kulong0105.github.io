@@ -265,7 +265,7 @@ NOTE: 使用“！”可以将条件取反
 ```bash
 # iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 ```
-NOTE:
+NOTE:   
 1) eth1 is connected to external network (internet), and eth0 is connected to internal network (192.168.1.x)   
 2) enable forward function: echo 1 > /proc/sys/net/ipv4/ip_forward
 
@@ -333,7 +333,7 @@ NOTE: 将连接限制到每分钟 25 个，上限设定为100
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3-192.168.5.5
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 ```
-NOTE： 
+NOTE：   
 1) --to-source 可以指定多个IP地址   
 2) MASQUERADE会自动读取eth0现在的ip地址然后做snat出去
 
@@ -349,7 +349,7 @@ NOTE: 限制每个客户端不超过 3 个连接。
 ```bash
 # iptables-save
 ```
-NOTE: 情况下，iptables 规则的操作会立即生效。但由于规则都是保存在内存当中的，
+NOTE: 默认情况下，iptables 规则的操作会立即生效。但由于规则都是保存在内存当中的，
 所以重启系统会造成配置丢失，要永久保存 IPtables 规则可以使用 iptables-save 命令。
 
 
