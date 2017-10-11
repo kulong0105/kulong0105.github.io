@@ -47,7 +47,7 @@ netfilter所设置的规则是放在内核内存中的, iptables是一个应用�
 
 ### iptables的组成
 
-iptables可以看作由`四表无链` 组成:
+iptables可以看作由`四表五链` 组成:
 
 四表：
 * filter表：主要用于对数据包进行过滤，根据具体的规则决定是否放行该数据包（如DROP、ACCEPT、REJECT、LOG）
