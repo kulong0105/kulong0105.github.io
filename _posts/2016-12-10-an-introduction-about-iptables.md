@@ -266,7 +266,7 @@ NOTE: 使用“！”可以将条件取反
 # iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 ```
 NOTE:
-1) eth1 is connected to external network (internet), and eth0 is connected to internal network (192.168.1.x)
+1) eth1 is connected to external network (internet), and eth0 is connected to internal network (192.168.1.x)   
 2) enable forward function: echo 1 > /proc/sys/net/ipv4/ip_forward
 
 
@@ -306,7 +306,7 @@ NOTE:
 
 * 防止 DoS 攻击
 ```bash
-iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+# iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
 ```
 NOTE: 将连接限制到每分钟 25 个，上限设定为100
 
@@ -319,7 +319,7 @@ NOTE: 将连接限制到每分钟 25 个，上限设定为100
 ```
 或者
 ```bash
-# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525		
+# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 422 -j REDIRECT --to-port 22   
 ```
 
 * 屏蔽指定MAC地址
@@ -331,10 +331,10 @@ NOTE: 将连接限制到每分钟 25 个，上限设定为100
 ```bash
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3
 # iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3-192.168.5.5
-# iptables -t nat -A POSTROUTING -s 10.8.0.0/255.255.255.0 -o eth0 -j MASQUERADE
+# iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 ```
 NOTE： 
-1) --to-source 可以指定多个IP地址
+1) --to-source 可以指定多个IP地址   
 2) MASQUERADE会自动读取eth0现在的ip地址然后做snat出去
 
 
