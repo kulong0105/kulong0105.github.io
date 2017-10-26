@@ -49,7 +49,7 @@ shopt –s expand_aliases   #可以这样进行enable
 | 7 | apt-get update  | 更新本地数据库|
 | 8 | apt-get upgrade |	命令更新系统上的所有包|
 
-相关配置文件：
+相关配置文件：  
 1）/etc/apt/sources.list
 这个列表告诉 apt-get 到哪里寻找包，包括 CD-ROM、本地文件系统以及使用 http 或 ftp 在网上寻找。
 可以在 /etc/apt/sources.list.d 目录中添加更多来源。
@@ -145,10 +145,10 @@ cpio -o -H newc ./* | gzip -n 9 > abc.cgz
 
 ### cp && rm
 
-说明:
-* /root/.bashrc里面对cp与rm命令都使用alias进行了重命名
-* rm如果遇到冲突的选项，会以最后一个选项为参数执行rm命令。
-* cp如果遇到冲突的选项，会以最开始的选项为参数执行cp命令
+说明:  
+1) /root/.bashrc里面对cp与rm命令都使用alias进行了重命名  
+2) rm如果遇到冲突的选项，会以最后一个选项为参数执行rm命令  
+3) cp如果遇到冲突的选项，会以最开始的选项为参数执行cp命令  
 
 这样就会导致，在终端下执行cp –f命令时仍然需要手工进行确认。
 
@@ -300,11 +300,11 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # loseup  –d  /dev/loopX
 ```
 
-注：
-1)当出现vdi等格式的img文件时可能无法kpartx，可以使用qemu-img convert命令把起格式转换为raw格式,然后再尝试。
-2)当img文件里面使用的是LVM方式的磁盘分区时，mount时可能出现错误："mount: unknown filesystem  type LVM2_member",
-这个时候需要这样挂载：
+注：  
+1)当出现vdi等格式的img文件时可能无法kpartx，可以使用qemu-img convert命令把起格式转换为raw格式,然后再尝试。  
+2)当img文件里面使用的是LVM方式的磁盘分区时，mount时可能出现错误："mount: unknown filesystem  type LVM2_member",  
 
+这个时候需要这样挂载：
 ```
 # pvscan                    (查看逻辑卷组)
 # vgchange –ay $vol_group   (激活逻辑卷组)
@@ -398,9 +398,9 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 ```
 # mktemp  -dq  /tmp/file. XXXXXXXXXX (必须以X这种格式结尾)
 ```
-注：
-1) -d：表示生成一个目录而不是一个文件
-2) -q：表示quiet模式（即使出错也不输出一些错误信息到stdout）
+注：  
+1) -d：表示生成一个目录而不是一个文件  
+2) -q：表示quiet模式（即使出错也不输出一些错误信息到stdout）  
 
 
 ### modinfo
@@ -686,7 +686,7 @@ IO测定：
 # ssh -L  [bind_address:]port:host:hostport <hostname>
 # ssh -R  [bind_address:]port:host:hostport <hostname>
 ```
-说明：
+说明：  
 1）表示访问IP地址为bind_address、端口号为port的连接会被SSH转发到IP地址为host、端口号为hostport的应用。  
 2）SSH 端口转发是通过 SSH 连接建立起来的，我们必须保持这个 SSH 连接以使端口转发保持生效。一旦关闭了此连接，相应的端口转发也会随之关闭。  
 3) 我们只能在建立 SSH 连接的同时创建端口转发，而不能给一个已经存在的 SSH 连接增加端口转发  
@@ -724,9 +724,9 @@ Host allen
 	Port 6666
 ```
 
-说明：
-1)首先运行 ssh allen-forward 建立ssh通道
-2)然后就可以运行 ssh allen 进行连接了。
+说明：  
+1)首先运行 ssh allen-forward 建立ssh通道  
+2)然后就可以运行 ssh allen 进行连接了  
 
 
 ### sync
@@ -867,10 +867,9 @@ export MY_CARD="enp2s0"
 tc qdisc delete dev $MY_CARD root
 ```
 
-注意:(网络带宽为1000mbit)
-
-a)当设置输出带宽限制为20mbit时：对输入带宽没有任何限制，即输入带宽仍可以达到1000mbit。
-b)当设置输出带宽限制为200kbit时，同时还会对输入流量产生限制作用，经测定此时输入带宽只能达到20mbit/s。（不理解）
+注意:(网络带宽为1000mbit)  
+1) 当设置输出带宽限制为20mbit时：对输入带宽没有任何限制，即输入带宽仍可以达到1000mbit。 
+2) 当设置输出带宽限制为200kbit时，同时还会对输入流量产生限制作用，经测定此时输入带宽只能达到20mbit/s。（不理解）  
 
 
 * 限制输入与输出流量：
@@ -1058,11 +1057,11 @@ gpgcheck=0
 # xfs_copy /dev/sdc1 /dev/sdc2
 ```
 
-注：
-1)使用xfs_copy可以拷贝XFS文件系统，用户可以将一个或几个文件系统拷贝到磁盘分区或文件中。
-2)如果多个目标，可并行。
-3)目标文件直接被格式化xfs文件系统
-4)如果原始文件系统小于新文件系统，建议使用mkfs.xfs/xfsdump/xfsrestore
+注：  
+1)使用xfs_copy可以拷贝XFS文件系统，用户可以将一个或几个文件系统拷贝到磁盘分区或文件中  
+2)如果多个目标，可并行  
+3)目标文件直接被格式化xfs文件系统  
+4)如果原始文件系统小于新文件系统，建议使用mkfs.xfs/xfsdump/xfsrestore  
 
 
 冷冻与恢复：
