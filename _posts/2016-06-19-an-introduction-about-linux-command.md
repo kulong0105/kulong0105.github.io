@@ -679,20 +679,35 @@ IO测定：
 ```
 注: ssh IP “command”(command接在ip之后，同一行)
 
+
 * 端口转发
 
 ```
-# ssh -g -L  [bind_address:]port:host:hostport <hostname>
+# ssh -L  [bind_address:]port:host:hostport <hostname>
+# ssh -R  [bind_address:]port:host:hostport <hostname>
 ```
 说明：
-1）表示访问IP地址为bind_address、端口号为port的连接会被SSH转发到IP地址为host、端口号为hostport的应用。
-2）SSH 端口转发是通过 SSH 连接建立起来的，我们必须保持这个 SSH 连接以使端口转发保持生效。
-   一旦关闭了此连接，相应的端口转发也会随之关闭。
-3)我们只能在建立 SSH 连接的同时创建端口转发，而不能给一个已经存在的 SSH 连接增加端口转发
+1）表示访问IP地址为bind_address、端口号为port的连接会被SSH转发到IP地址为host、端口号为hostport的应用。  
+2）SSH 端口转发是通过 SSH 连接建立起来的，我们必须保持这个 SSH 连接以使端口转发保持生效。一旦关闭了此连接，相应的端口转发也会随之关闭。  
+3) 我们只能在建立 SSH 连接的同时创建端口转发，而不能给一个已经存在的 SSH 连接增加端口转发  
+4) -L表示正向端口转发，-R表示逆向端口转发。
 
-Ex：(访问193.168.246.254:80端口会被转发到193.168.197.232:80上)
+Ex1：(访问192.168.10.10:80端口会被转发到192.168.10.20:80上)
 ```
-ssh -g -L 193.168.246.254:80:193.168.197.232:80  193.168.197.232
+ssh -L 192.168.10.10:80:192.168.10.20:80 192.168.10.20
+ssh -L 192.168.10.10:80:localhost:80 192.168.10.20
+```
+
+Ex2：(访问192.168.10.20:88端口会被转发到192.168.10.10:80上)
+```
+ssh -R 88:192.168.10.20:80 192.168.10.20
+ssh -R 88:localhost:80 192.168.10.20
+```
+
+下面的command-line表示访问当前机器的任何IP地址都会进行转发：
+```
+# ssh -g -L port:host:hostport <hostname>
+# ssh -L 0.0.0.0:port:host:hostport <hostname>
 ```
 
 或者在~/.ssh/config文件进行如下配置
