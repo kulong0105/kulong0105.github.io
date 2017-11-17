@@ -110,3 +110,31 @@ do
 	ssh $ip "echo hello"
 done 10<<<"$ips"
 ```
+
+### typeset使用
+
+* typeset 用在函数内部，如果不使用-g选项，相当于local定义功能
+* typeset -a  定义的数组是通过下标ID进行索引的， typeset -A 可以根据内容进行索引
+```
+typeset  -a  student
+student[0]="AAA"
+student[1]="BBB"
+
+typeset -a teacher
+teacher["math"]="CCC"
+teacher["english"]="DDD"
+```
+
+### exec 使用
+
+符号	意义
+n>&m	将FD为m的输出复制到FD为n的文件
+n<&m	将FD为m的输入复制到FD为n的文件
+n>&-	关闭FD为n的输出
+n<&-	关闭FD为n的输入
+&>file	将stdout和stderr重定向到file
+[j]<>file  把文件"file"打开, 并且将文件描述符"j"分配给它,该文件描述符可用于读写
+
+more details can refer to
+1) http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html
+2) http://molinux.blog.51cto.com/2536040/469554
