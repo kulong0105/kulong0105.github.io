@@ -25,16 +25,45 @@ tags:
 
 ### systemctl用法
 
+#### Unit状态
+
 | 序号 | 命令| 说明| 
 | --- | --- | --- |
-| 1 | systemctl | systemd-cgls 命令可以以树状的形式列出正在运行的进程信息| 
-| 2 | systemctl -t service | 列出所有正在运行的服务 | 
-| 3 | systemctl start/stop/restart/status  sshd.service | 启动、停止，重启，状态| 
-| 4 | systemctl enable/disable httpd.service | 编辑配置文件| 
-| 5 | systemctl is-enabled httpd.service; echo $? | 返回值为0表示该服务已经能随机启动，否则不是| 
+| 1 | systemctl | 列出正在运行的进程信息| 
+| 2 | systemd-cgls | 列出正在运行的进程信息| 
+| 3 | systemctl -t service | 列出所有正在运行的服务 | 
+| 4 | systemctl is-active xxx.service | 服务是否正在运行 | 
+| 5 | systemctl is-failed xxx.service | 服务是否启动失败 | 
+| 6 | systemctl status xxx.service | 服务当前状态详细信息 | 
+| 7 | systemctl is-enabled xxx.service | 服务是否开启自启动 |
 
-注：相关配置可以check "ls etc/systemd/system/*.wants/"
 
+#### Unit管理
+
+| 序号 | 命令| 说明| 
+| --- | --- | --- |
+| 1 | systemcal daemon-reload | 重载所有修改过的配置文件 | 
+| 2 | systemctl reload xxx.service |重载服务配置文件| 
+| 3 | systemctl start xxx.service | 启动服务| 
+| 4 | systemctl stop xxx.service | 停止服务| 
+| 5 | systemctl kill xxx.service | kill服务| 
+| 6 | systemctl restart xxx.service | 重启服务| 
+| 7 | systemctl enable xxx.service | 设置开机子启动|  
+| 8 | systemctl disable xxx.service | 取消开机自启动|
+
+
+#### 其他
+
+| 序号 | 命令| 说明| 
+| --- | --- | --- |
+| 1 | systemctl list-units | 列出正在运行的 Unit | 
+| 2 | systemctl list-unit-files | 列出所有配置文件|
+| 3 | systemctl list-dependencies xxx.service | 列出服务的依赖|
+| 4 | systemd-analyze | 查看启动耗时 |
+| 5 | systemd-analyze blame | 查看每个服务启动耗时 |
+| 6 | systemd-analyze critical-chain | 显示瀑布状的启动过程流 |
+| 7 | systemctl get-default | 查看启动时的默认 Target |
+| 8 | systemctl set-default multi-user.target | 设置启动时的默认 Target | 
 
 ### 运行级别说明
 
@@ -53,7 +82,11 @@ tags:
 
 改变至多用户（非图形化）运行级别：
 * 6系：telinit  3
-* 7系：systemctl isolate multi-user.target | systemctl isolate runlevel3.target | telinit 3
+
+* 7系
+	** systemctl isolate multi-user.target 
+	** systemctl isolate runlevel3.target 
+	** telinit 3
 
 设置在下一次启动时使用多用户（非图形化）运行级别：
 * 6系：修改/etc/inittab
