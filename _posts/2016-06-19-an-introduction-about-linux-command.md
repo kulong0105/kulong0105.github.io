@@ -242,6 +242,25 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # hash -r  //清空缓存
 ```
 
+
+### hostnamectl
+
+说明: 看当前主机的信息
+```
+# hostnamectl
+   Static hostname: localhost.localdomain
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 447762032abf487799cd5dc26f9baa7b
+           Boot ID: 81b94e038fcd4f3482ae9eb907b8f9ff
+  Operating System: Fedora 26 (Workstation Edition)
+       CPE OS Name: cpe:/o:fedoraproject:fedora:26
+            Kernel: Linux 4.13.15-200.fc26.x86_64
+      Architecture: x86-64
+#
+```
+
+
 ### id / whoami / groups
 
 说明： 显示用户id和gid
@@ -284,6 +303,36 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # ipcs –ma
 ```
 
+### journalctl
+
+| 序号 | 命令| 说明|
+| --- | --- | --- |
+| 1 | journalctl | 查看所有日志| 
+| 2 | journalctl -k | 查看内核日志|
+| 3 | journalctl -b | 查看系统本次启动的日志 | 
+| 4 | journalctl -b -p err | 查看指定优先级的日志| 
+| 4 | journalctl -b -1 | 查看系统上次启动的日志 | 
+| 5 | journalctl -n 20 | 显示尾部指定行数的日志 | 
+| 6 | journalctl -f | 实时滚动显示最新日志 |
+| 7 | journalctl _PID=xxx | 查看指定进程的日志 |
+| 8 | journalctl _UID=xxx | 查看指定用户的日至 |
+| 9 | journalctl -u xxx.service | 查看某个服务的日志|
+|10 | journalctl /path/to/file | 查看某个文件的日志 |
+|12 | journalctl --vacuum-size=1G | 指定日志文件占据的最大空间| 
+|13 | journalctl --vacuum-time=1years | 指定日志文件保存多久| 
+|14 | journalctl --disk-usage | 显示日志占据的硬盘空间| 
+|15 | journalctl --since "2015-01-10" --until "2015-01-11 03:00"| 查看指定时间的日志|
+
+日志共有8个级别:
+- 0: emerg
+- 1: alert
+- 2: crit
+- 3: err
+- 4: warning
+- 5: notice
+- 6: info
+- 7: debug
+
 
 ### losetup
 
@@ -299,9 +348,7 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 # kpartx  –d  /dev/loopX
 # loseup  –d  /dev/loopX
 ```
-
-注：  
-1)当出现vdi等格式的img文件时可能无法kpartx，可以使用qemu-img convert命令把起格式转换为raw格式,然后再尝试。  
+注：  1)当出现vdi等格式的img文件时可能无法kpartx，可以使用qemu-img convert命令把起格式转换为raw格式,然后再尝试。  
 2)当img文件里面使用的是LVM方式的磁盘分区时，mount时可能出现错误："mount: unknown filesystem  type LVM2_member",  
 
 这个时候需要这样挂载：
@@ -334,6 +381,33 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 ```
 # lsblk -d -o name,rota /dev/sda
 # cat /sys/block/sda/queue/rotational
+```
+
+
+### localectl
+
+说明:查看本地化设置
+
+```
+# localectl
+   System Locale: LANG=en_US.UTF-8
+       VC Keymap: us
+      X11 Layout: us
+#
+```
+
+### loginctl
+
+说明：查看当前登录的用户
+
+```
+# loginctl
+   SESSION        UID USER             SEAT             TTY
+         2       1000 renyl            seat0            /dev/tty2
+        c1         42 gdm              seat0            /dev/tty1
+
+2 sessions listed.
+#
 ```
 
 
@@ -389,7 +463,7 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 
 说明：查看网卡连接状况
 ```
-# mii-tool –w eth0 eth1 ……
+# mii-tool -w eth0 eth1
 ```
 
 
@@ -777,6 +851,13 @@ sudo sysctl -p  #添加设置到/etc/sysctl.conf,使其重启后仍然有效
 | 3 | taskset -p –c numlist pid | 根据PID及cpulist绑定|
 | 4	| taskset –p  pid | 查看|
 
+
+### timedatectl
+
+说明：查看当前时区设置
+```
+# timedatectl
+```
 
 ### tmux
 
