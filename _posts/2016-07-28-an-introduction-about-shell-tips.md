@@ -138,3 +138,30 @@ n<&-	关闭FD为n的输入
 more details can refer to
 1) http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html
 2) http://molinux.blog.51cto.com/2536040/469554
+
+
+### 检查远程端口是否打开
+
+除了可以使用nmap命令检测远程端口是否打开，还可以通过/dev/tcp/$ip/$port 文件来判断
+
+```
+$ echo > /dev/tcp/$ip/$port &>/dev/null  &&  echo "Open"
+```
+
+
+### 数组操作
+
+定义： 
+a=(1 2 3 4 5)
+
+获取长度：
+echo ${#a[*]}
+
+读取：
+echo ${#a[2]}
+
+删除：
+unset a[1]
+
+切片:
+echo ${a[@]:2}
