@@ -5,7 +5,7 @@ tags:
 - systemd
 ---
 
-## 介绍
+# 介绍
 
 本文主要进行如下介绍：
 
@@ -14,7 +14,7 @@ tags:
 * 运行级别说明
 
 
-### systemd背景
+## systemd背景
 
 * systemd 是 Linux 下一个与 SysV 和 LSB 初始化脚本兼容的系统和服务管理器。
 * systemd 无需经过任何修改便可以替代 sysvinit 
@@ -23,9 +23,9 @@ tags:
 
 <!--more-->
 
-### systemctl用法
+## systemctl用法
 
-#### Unit状态
+### Unit状态
 
 | 序号 | 命令| 说明| 
 | --- | --- | --- |
@@ -37,8 +37,7 @@ tags:
 | 6 | systemctl status xxx.service | 服务当前状态详细信息 | 
 | 7 | systemctl is-enabled xxx.service | 服务是否开启自启动 |
 
-
-#### Unit管理
+### Unit管理
 
 | 序号 | 命令| 说明| 
 | --- | --- | --- |
@@ -49,10 +48,9 @@ tags:
 | 5 | systemctl kill xxx.service | kill服务| 
 | 6 | systemctl restart xxx.service | 重启服务| 
 | 7 | systemctl enable xxx.service | 设置开机子启动|  
-| 8 | systemctl disable xxx.service | 取消开机自启动|
+| 8 | systemctl disable xxx.service | 取消开机自启动|  
 
-
-#### 其他
+### 其他
 
 | 序号 | 命令| 说明| 
 | --- | --- | --- |
@@ -65,7 +63,8 @@ tags:
 | 7 | systemctl get-default | 查看启动时的默认 Target |
 | 8 | systemctl set-default multi-user.target | 设置启动时的默认 Target | 
 
-### 运行级别说明
+
+## 运行级别说明
 
 | Sysvinit运行级别 | Systemd目标| 说明| 
 | --- | --- | --- |
@@ -78,20 +77,23 @@ tags:
 | emergency | emergency.target | 紧急 Shell |
 
 
-### 改变运行级别
+## 改变运行级别
 
 改变至多用户（非图形化）运行级别：
-* 6系：telinit  3
-
-* 7系
-	** systemctl isolate multi-user.target 
-	** systemctl isolate runlevel3.target 
-	** telinit 3
+* systemctl isolate multi-user.target 
+* systemctl isolate runlevel3.target 
+* telinit 3
 
 设置在下一次启动时使用多用户（非图形化）运行级别：
-* 6系：修改/etc/inittab
-* 7系：ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
+* ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
+* systemctl set-default multi-user.target
  
 关机：
-poweroff | halt -p | init 0 | shutdown -P now
+* poweroff 
+* halt -p 
+* init 0 
+* shutdown -P now
 
+
+## reference
+[http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)
