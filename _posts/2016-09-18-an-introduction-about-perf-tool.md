@@ -104,6 +104,99 @@ systemd(1)-+-ModemManager(742)-+-{gdbus}(779)
 ```
 
 
+### pidstat
+
+显示进程的各种统计信息
+
+```
+[renyl@localhost ~]$ pidstat  1 1
+Linux 4.13.15-200.fc26.x86_64 (localhost.localdomain) 	12/19/2017 	_x86_64_	(4 CPU)
+
+09:39:45 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+09:39:46 PM     0         8    0.00    0.98    0.00    0.98     1  rcu_sched
+09:39:46 PM  1000      1778    2.94    0.00    0.00    2.94     3  gnome-shell
+09:39:46 PM  1000      2287    1.96    0.00    0.00    1.96     1  gnome-terminal-
+09:39:46 PM  1000     22612    0.98    0.98    0.00    1.96     0  pidstat
+09:39:46 PM  1000     27413    0.98    0.00    0.00    0.98     2  chrome
+[renyl@localhost ~]$ pidstat -C "chrome" 1 2
+Linux 4.13.15-200.fc26.x86_64 (localhost.localdomain) 	12/19/2017 	_x86_64_	(4 CPU)
+
+09:40:10 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+09:40:11 PM  1000      8314    0.00    0.99    0.00    0.99     0  chrome
+09:40:11 PM  1000     27413    0.99    0.00    0.00    0.99     3  chrome
+09:40:11 PM  1000     31343    0.99    0.00    0.00    0.99     3  chrome
+
+09:40:11 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+09:40:12 PM  1000      8011    0.00    1.00    0.00    1.00     2  chrome
+09:40:12 PM  1000      8272    1.00    1.00    0.00    2.00     2  chrome
+[renyl@localhost ~]$ pidstat -u -C "chrome" 1 2
+Linux 4.13.15-200.fc26.x86_64 (localhost.localdomain) 	12/19/2017 	_x86_64_	(4 CPU)
+
+09:41:05 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+09:41:06 PM  1000      8011    0.99    0.00    0.00    0.99     3  chrome
+
+09:41:06 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+09:41:07 PM  1000      8314    1.00    0.00    0.00    1.00     1  chrome
+
+Average:      UID       PID    %usr %system  %guest    %CPU   CPU  Command
+Average:     1000      8011    0.50    0.00    0.00    0.50     -  chrome
+Average:     1000      8314    0.50    0.00    0.00    0.50     -  chrome
+[renyl@localhost ~]$ pidstat -w -C "chrome" 1 2
+Linux 4.13.15-200.fc26.x86_64 (localhost.localdomain) 	12/19/2017 	_x86_64_	(4 CPU)
+
+09:41:11 PM   UID       PID   cswch/s nvcswch/s  Command
+09:41:12 PM  1000      3893      0.98      0.00  chrome
+09:41:12 PM  1000      8011      4.90      0.00  chrome
+09:41:12 PM  1000      8272      0.98      0.00  chrome
+09:41:12 PM  1000      8314      0.98      0.00  chrome
+09:41:12 PM  1000     14070      4.90      0.00  chrome
+09:41:12 PM  1000     15487      0.98      0.00  chrome
+09:41:12 PM  1000     23556      0.98      0.00  chrome
+09:41:12 PM  1000     23773      0.98      0.00  chrome
+09:41:12 PM  1000     23809      0.98      0.00  chrome
+09:41:12 PM  1000     27156      0.98      0.00  chrome
+09:41:12 PM  1000     27222      0.98      0.00  chrome
+09:41:12 PM  1000     27239      0.98      0.00  chrome
+09:41:12 PM  1000     27413      9.80      0.00  chrome
+09:41:12 PM  1000     31101      0.98      0.00  chrome
+09:41:12 PM  1000     31343      0.98      0.00  chrome
+
+09:41:12 PM   UID       PID   cswch/s nvcswch/s  Command
+09:41:13 PM  1000      3893      1.00      0.00  chrome
+09:41:13 PM  1000      8011      5.00      0.00  chrome
+09:41:13 PM  1000      8272      1.00      0.00  chrome
+09:41:13 PM  1000      8314      1.00      0.00  chrome
+09:41:13 PM  1000     14070      4.00      0.00  chrome
+09:41:13 PM  1000     15487      1.00      0.00  chrome
+09:41:13 PM  1000     23556      1.00      0.00  chrome
+09:41:13 PM  1000     23773      1.00      0.00  chrome
+09:41:13 PM  1000     23809      1.00      0.00  chrome
+09:41:13 PM  1000     27156      1.00      0.00  chrome
+09:41:13 PM  1000     27222      1.00      0.00  chrome
+09:41:13 PM  1000     27239      1.00      0.00  chrome
+09:41:13 PM  1000     27413     10.00      0.00  chrome
+09:41:13 PM  1000     31101      1.00      0.00  chrome
+09:41:13 PM  1000     31343      1.00      0.00  chrome
+[renyl@localhost ~]$ pidstat -r -C "chrome" 1 2
+Linux 4.13.15-200.fc26.x86_64 (localhost.localdomain) 	12/19/2017 	_x86_64_	(4 CPU)
+
+09:41:39 PM   UID       PID  minflt/s  majflt/s     VSZ     RSS   %MEM  Command
+09:41:40 PM  1000      8314      0.99      0.00 2016140  345212   4.39  chrome
+09:41:40 PM  1000     14070      4.95      0.00 1414052  157184   2.00  chrome
+09:41:40 PM  1000     23809      0.99      0.00 1367908  140828   1.79  chrome
+09:41:40 PM  1000     27413      1.98      0.00 1297432   98476   1.25  chrome
+09:41:40 PM  1000     31101    180.20      0.00 1309264  126168   1.60  chrome
+09:41:40 PM  1000     31343      1.98      0.00 1310288  126352   1.61  chrome
+
+09:41:40 PM   UID       PID  minflt/s  majflt/s     VSZ     RSS   %MEM  Command
+09:41:41 PM  1000      8011     12.00      0.00 2608172 1127464  14.33  chrome
+09:41:41 PM  1000      8314      1.00      0.00 2016140  345212   4.39  chrome
+09:41:41 PM  1000     14070      6.00      0.00 1414052  157184   2.00  chrome
+09:41:41 PM  1000     31101      1.00      0.00 1309264  126168   1.60  chrome
+[renyl@localhost ~]$
+```
+
+
 ### free
 
 系统系统内存相关信息
