@@ -50,6 +50,17 @@ KiB Swap:  1952764 total,  1952764 free,        0 used.  6628776 avail Mem
 显示系统进程相关信息
 
 ```
+[renyl@localhost ~]$ ps -u renyl | tail
+26561 pts/4    00:00:03 chrome
+26985 pts/3    00:00:08 bash
+27222 pts/4    00:00:09 chrome
+27239 pts/4    00:00:10 chrome
+27413 pts/4    00:00:14 chrome
+28808 pts/4    00:00:25 chrome
+31454 pts/0    00:00:00 mutt
+31976 pts/6    00:00:00 vim
+32083 pts/2    00:00:00 ps
+32084 pts/2    00:00:00 tail
 [renyl@localhost ~]$ ps faux | head -5
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         2  0.0  0.0      0     0 ?        S    22:51   0:00 [kthreadd]
@@ -1247,6 +1258,10 @@ AnonPages:       1835216 kB
 Mapped:           735516 kB
 [renyl@localhost ~]$
 ```
+
+注：
+* Buffers是针对raw disk的块缓存，主要是以raw block的方式缓存文件系统的元数据，这个值一般较小
+* Cached是针对某些具体文件进行缓存，以增加文件的访问效率而使用，相当于文件系统中文件缓存使用
 
 
 ### cmdline
