@@ -455,8 +455,9 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 | 1 | lsof /home/renyl/testfile | 查看文件被哪个进程在使用 |
 | 2 | lsof -c processA | 显示进程A打开的文件 |
 | 3 | lsof -p PID | 根据进程ID显示打开的文件 |
-| 4 | lsof -g GPID | 根据进程组IP显示打开的文件|
-| 5 | lsof -i tcp:25 | 查看指定协议/端口号的文件|
+| 4 | lsof -u username | 根据用户显示打开的文件 |
+| 5 | lsof -g GPID | 根据进程组IP显示打开的文件|
+| 6 | lsof -i tcp:25 | 查看指定协议/端口号的文件|
 
 
 ### lspci
