@@ -141,6 +141,7 @@ git branch -vv                  #产看本地和远程分支的track
 git branch -d  my_branch        #删除分支
 git branch -D  my_branch        #强行删除还未合并的分支
 git branch -u origin/dev dev    #设置本地dev分支track远程dev分支(远程dev分支必须要存在）
+git branch -d -r origin/test    #删除本地的远程分支
 ```
 
 
@@ -407,6 +408,20 @@ git am -xxx.patch
 $ git bisect start
 $ git bisect bad            # Current version is bad
 $ git bisect good v2.3.0    # v2.3.0 was the last version tested that was good
+```
+
+
+### filter-branch
+
+如果想在git repo中完全删除一个意外提交的敏感文件或大文件，可以使用如下步骤: (https://help.github.com/articles/removing-sensitive-data-from-a-repository/)
+
+```
+$ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch PATH-TO-YOUR-FILE-WITH-SENSITIVE-DATA' --prune-empty --tag-name-filter cat -- --all
+$ git push origin --force --all
+$ git push origin --force --tags   # In order to remove the sensitive file from your tagged releases
+$ git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
+$ git reflog expire --expire=now --all
+$ git gc --prune=now
 ```
 
 
