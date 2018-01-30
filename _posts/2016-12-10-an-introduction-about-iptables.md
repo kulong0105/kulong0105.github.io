@@ -156,10 +156,8 @@ iptables针对数据包有如下几种处理方式:
 15)[--dport目标端口号]：数据包的IP的目标端口号  
 16)-m：extend matches，这个选项用于提供更多的匹配参数，如：  
 17)-m state —state ESTABLISHED,RELATED  
-18)-m tcp —dport 22  
-19)-m multiport —dports 80,8080  
-20)-m icmp —icmp-type 8  
-21)<-j 动作>：处理数据包的动作，包括ACCEPT、DROP、REJECT等   
+18)-m multiport —dports 80,8080  
+19)<-j 动作>：处理数据包的动作，包括ACCEPT、DROP、REJECT等   
 
 
 ## iptables用法
