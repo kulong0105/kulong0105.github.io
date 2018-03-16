@@ -1050,6 +1050,12 @@ yum相关命令
 | 8 | yum groupinfo | 系统中组的信息 |
 | 9 | yum search command | 查找command这个命令在哪个包 |
 | 10| yum clean all | 清空缓存 |
+| 11| yum --showduplicates list | 列出所有包括不同版本的包|
+| 12| yum install $pkg-version | 安装指定版本的包 |
+| 13| yum --downloadonly $pkg | 只下载包|
+| 14| yumdownloader $pkg | 只下载包|
+| 15| yumdownloader --resolve $pkg | 下载包及其相关依赖 |
+| 16| yum localinstall $path_to_rpm | 安装本地包 |
 
 
 ### virsh
