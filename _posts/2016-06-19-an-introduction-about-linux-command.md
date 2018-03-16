@@ -1005,6 +1005,26 @@ tc qdisc delete dev $MY_CARD1 handle ffff: ingress
 ```
 
 
+### ulimit
+
+修改系统资源限制，有两种方法：
+- ulimit 命令 (立刻生效，仅对当前session)
+- /etc/securit/limits.conf 文件(需要重新登陆session才能生效)
+
+然而,发现对systemd启动的服务进程却无效，根本原因是由于systemd启动的服务，不通过PAM认证，
+因此,不会调用pam_limits.so模块，进而，通过ulimit命令或者使用limits.conf文件，都没有效果。
+
+可以通过修改/usr/lib/systemd/system/xxx.service文件，在[Service]字段，添加类似
+```
+LimitNOFILE=65536
+LimitMEMLOCK=infinity
+```
+这样的变量，使其生效。
+
+
+refers:
+- https://support.hpe.com/hpsc/doc/public/display?docId=mmr_kc-0128457
+
 ### yum
 
 使用createrepo配置
