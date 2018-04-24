@@ -243,6 +243,14 @@ git remote set-url origin $repo_url
 * 使用https协议：每次push都要输入用户名和密码。可以让git记录密码：使用命令`git config --global credential.helper wincred`
 * 使用git协议: 每次push不需要每次输入密码，因为是通过ssh key的方式来认证的
 
+更新upstraem仓库到个人仓库:
+```
+$ git remote add upstream https://github.com/yeasy/docker_practice
+$ git fetch upstream
+$ git rebase upstream/master
+$ git push -f origin master
+```
+
 
 ### ls-remote
 
