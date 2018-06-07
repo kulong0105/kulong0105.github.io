@@ -12,6 +12,7 @@ tags:
 * systemd背景
 * systemctl用法
 * 运行级别说明
+* systemd文件
 
 
 ## systemd背景
@@ -95,5 +96,50 @@ tags:
 * shutdown -P now
 
 
+## systemd文件
+
+### service文件
+
+```
+$ cat cuda.service
+[Unit]
+Description=cuda
+After=network.target local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/home/renyl/cuda/ld-nvidia-urm.sh
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
+[renyl@localhost skydiscovery-deploy]$
+
+```
+
+注: Type支持多种类型，如notify,oneshot,simple,forking等
+
+
+### mount文件
+
+```
+$ cat data.mount
+[Unit]
+Description=data-lvm mount
+After=network.target local-fs.target time-sync.target
+
+[Mount]
+What=/dev/vg-data/lv-data
+Where=/data
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
 ## reference
-[http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)
+- [http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)
+- [https://www.freedesktop.org/software/systemd/man/systemd.service.html](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+- [https://www.freedesktop.org/software/systemd/man/systemd.mount.html](https://www.freedesktop.org/software/systemd/man/systemd.mount.html)
+

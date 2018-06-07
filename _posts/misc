@@ -32,17 +32,6 @@ echo 256 >/sys/block/sdx/queue/read_ahead_kb
 VM: raw文件提供最好的性能，qcow2镜像更小，并且支持snapshot功能
 
 
-#Docker
-## install docker on Centos6.x
-    To avoid having to use sudo when you use the docker command, create a Unix group called docker and add users to it
-    ====
-    sudo groupadd docker
-    sudo usermod -aG docker $your_username
-    === 
-    https://docs.docker.com/engine/installation/linux/centos/
-## config
-    - /etc/sysconfig/docker  (--insecure-registry, be set in client)
-    - /var/lib//docker
 ## search
     - curl http://$IP:5000/v1/search
     - docker search $IP:5000/$images
