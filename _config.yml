@@ -30,7 +30,7 @@ defaults:
       layout: "post"
       
 #### Pagination
-paginate: 10
+paginate: 8
 
 #### Site
 title : kulong0105's blog
