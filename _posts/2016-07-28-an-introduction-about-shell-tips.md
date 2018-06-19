@@ -165,3 +165,42 @@ unset a[1]
 
 切片:
 echo ${a[@]:2}
+
+
+### here文档
+
+- 对变量进行反斜杠转义，避免变量替换
+
+```
+cat >/tmp/testfile <<-EOF
+abc
+\$edf
+EOF
+```
+
+- 不需要对变量进行反斜杠转义，可以直接避免变量替换
+
+```
+cat >/tmp/testfile <<-"EOF"
+abc
+\$edf
+EOF
+```
+
+- 合并文件
+
+```
+cat - /tmp/file1 > /tmp/file2 <<EOF
+abc
+123
+EOF
+```
+
+
+### awk 移除重复的行
+
+```
+awk '!x[$0]++' /tmp/testfile
+```
+
+refers: https://unix.stackexchange.com/questions/159695/how-does-awk-a0-work
