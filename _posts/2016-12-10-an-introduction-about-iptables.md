@@ -169,7 +169,8 @@ iptables针对数据包有如下几种处理方式:
 
 * 删除所有现有规则
 ```bash
-# iptables -F
+# iptables -F && iptables -t nat -F
+# iptables -X && iptables -t nat -X
 ```
 
 * 设置默认的 chain 策略
