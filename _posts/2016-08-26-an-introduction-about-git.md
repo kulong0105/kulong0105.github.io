@@ -487,7 +487,7 @@ $ git gc --prune=now
 
 ## 学习链接
 
-* http://www.bootcss.com/p/git-guide/
-* http://www.liaoxuefeng.com/
-* http://blog.jobbole.com/tag/git/
+- [http://www.bootcss.com/p/git-guide/](http://www.bootcss.com/p/git-guide/)
+- [http://www.liaoxuefeng.com/](http://www.liaoxuefeng.com/)
+- [http://blog.jobbole.com/tag/git/](http://blog.jobbole.com/tag/git/)
 
