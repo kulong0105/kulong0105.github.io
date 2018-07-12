@@ -25,7 +25,7 @@ tags:
 | 5	| devices | 允许或者拒绝cgroup中的任务访问设备 |
 | 6	| freezer | 挂起或者恢复cgroup中的任务 | 
 | 7	| memory | 设定cgroup中的任务使用内存限制 | 
-| 8	| net_cls | 使用等级识别符（classid）标记网络数据包，允许Linux流量控制程序（tc）识别从具体cgroup中生成的数据包|。
+| 8	| net_cls | 使用等级识别符（classid）标记网络数据包，允许Linux流量控制程序（tc）识别从具体cgroup中生成的数据包|
 
 <!--more-->
 
@@ -47,7 +47,7 @@ tags:
 
 ```
 # mkdir /cgroup/label/mytest
-# echo $$ >/cgroup/label/mytest/tasks
+# echo $$ >/cgroup/$label/mytest/tasks
 # run command
 ```
 
@@ -61,21 +61,21 @@ tags:
 由于command执行后，现有shell中仍在cgroup中。因此更好的方法应为：
 
 ```
-# bash -c "echo \$$ > /cgroup/mytest/tasks & & command"
+# bash -c "echo \$$ > /cgroup/mytest/tasks && command"
 ```
 
 5) 对CPU资源进行限制
 
 ```
-# mkdir  /cgroup/cpuset/renyl        //创建一个新的组
+# mkdir  /cgroup/cpuset/renyl       #创建一个新的组
 # mkdir  /cgroup/cpu/renyl  
-# echo 0 >/cgroup/cpu/renyl/cpuset.cpus   //cpus和mems必须要设置
+# echo 0 >/cgroup/cpu/renyl/cpuset.cpus   #cpus和mems必须要设置
 # echo 0 >/cgroup/cpu/renyl/cpuset.mems    
 # cat  /cgroup/cpu/renyl/cpu.cfs_period_us
 100000
-# echo 50000 >/cgroup/cpu/renyl/cpu.cfs_quota_us  //控制cpu利用率为50%
-# echo pid > /cgroup/cpuset/renyl/tasks
-# echo pid > /cgroup/cpu/renyl/tasks
+# echo 50000 >/cgroup/cpu/renyl/cpu.cfs_quota_us  #控制cpu利用率为50%
+# echo $pid > /cgroup/cpuset/renyl/tasks
+# echo $pid > /cgroup/cpu/renyl/tasks
 ```
 
 6) 对Memory资源进行限制
