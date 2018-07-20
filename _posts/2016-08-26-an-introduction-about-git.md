@@ -144,6 +144,12 @@ git branch -u origin/dev dev    #设置本地dev分支track远程dev分支(远�
 git branch -d -r origin/test    #删除本地的远程分支
 ```
 
+创建一个分支并在远程track：
+```
+git checkout -b br-2.0
+git push origin br-2.0
+git branch -u origin/br-2.0 br-2.0
+```
 
 ### config
 
@@ -315,6 +321,7 @@ git push \[远程主机名\] \[ 本地分支名\]:\[远程分支名]
 ```
 git push origin :dev          #删除远程dev分支
 git push -u origin master     #首次push时需要加参数-u，表示建立“追踪关系"
+git push origin br-2.0        #推送本地br-2.0分支到远程
 git push
 git push -f                   #强制push到远程分支
 git push origin v1.0          #默认情况下，不会主动推送标签到远程。该功能完成推送v1.0标签到远程
