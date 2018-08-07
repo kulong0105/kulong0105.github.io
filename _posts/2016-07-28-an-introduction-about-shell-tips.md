@@ -183,7 +183,7 @@ EOF
 ```
 cat >/tmp/testfile <<-"EOF"
 abc
-\$edf
+$edf
 EOF
 ```
 
