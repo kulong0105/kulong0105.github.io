@@ -71,10 +71,9 @@ test2 && echo "test2"
 [renyl@localhost tmp]$ ./a.sh
 test1
 [renyl@localhost tmp]$
-
+```
 说明： if语句作为函数的返回值，总是返回真。而&&这种方式则使用判断语句的返回值作为函数的返回值。
 
-```
 
 ### while 语句的特定
 
@@ -111,10 +110,11 @@ do
 done 10<<<"$ips"
 ```
 
-### typeset使用
+### typeset/declare使用
 
 * typeset 用在函数内部，如果不使用-g选项，相当于local定义功能
-* typeset -a  定义的数组是通过下标ID进行索引的， typeset -A 可以根据内容进行索引
+* typeset -a 定义的数组是通过下标ID进行索引的， typeset -A 可以根据内容进行索引
+
 ```
 typeset  -a  student
 student[0]="AAA"
@@ -127,6 +127,7 @@ teacher["english"]="DDD"
 
 ### exec 使用
 
+```
 符号	意义
 n>&m	将FD为m的输出复制到FD为n的文件
 n<&m	将FD为m的输入复制到FD为n的文件
@@ -134,10 +135,11 @@ n>&-	关闭FD为n的输出
 n<&-	关闭FD为n的输入
 &>file	将stdout和stderr重定向到file
 [j]<>file  把文件"file"打开, 并且将文件描述符"j"分配给它,该文件描述符可用于读写
+```
 
-more details can refer to
-1) http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html
-2) http://molinux.blog.51cto.com/2536040/469554
+refers:
+- http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html
+- http://molinux.blog.51cto.com/2536040/469554
 
 
 ### 检查远程端口是否打开
@@ -146,25 +148,28 @@ more details can refer to
 
 ```
 $ echo > /dev/tcp/$ip/$port &>/dev/null  &&  echo "Open"
+
 ```
 
 
 ### 数组操作
 
-定义： 
+```
+- 定义：
 a=(1 2 3 4 5)
 
-获取长度：
+- 获取长度：
 echo ${#a[*]}
 
-读取：
+- 读取：
 echo ${#a[2]}
 
-删除：
+- 删除：
 unset a[1]
 
-切片:
+- 切片:
 echo ${a[@]:2}
+```
 
 
 ### here文档
@@ -204,3 +209,13 @@ awk '!x[$0]++' /tmp/testfile
 ```
 
 refers: https://unix.stackexchange.com/questions/159695/how-does-awk-a0-work
+
+### sed 移除某行及下一行
+
+```
+sed '/bar/,+1 d' filename
+```
+
+refers:
+- https://unix.stackexchange.com/questions/56123/remove-line-containing-certain-string-and-the-following-line
+- http://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html
