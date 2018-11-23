@@ -101,14 +101,17 @@ iptables针对数据包有如下几种处理方式:
         根据NAT表将目的地址数据改写为数据发送出去时候的源地址，并发送给主机。解决内网用户用同一个公网地址上网的问题。
 	* MASQUERADE: 是SNAT的一种特殊形式，适用于像adsl这种临时会变的ip上
 
-* DNAT:目标地址转换。和SNAT相反，IP包经过route之后、出本地的网络栈之前，重新修改目标地址，源地址不变，
+* DNAT：目标地址转换。和SNAT相反，IP包经过route之后、出本地的网络栈之前，重新修改目标地址，源地址不变，
        在本机建立NAT表项，当数据返回时，根据NAT表将源地址修改为数据发送过来时的目标地址，并发给远程主机。
 	   可以隐藏后端服务器的真实地址。
 	* REDIRECT：是DNAT的一种特殊形式，将网络包转发到本地host上（不管IP头部指定的目标地址是啥），方便在本机做端口转发。
 
+* RETURN: 返回到上一个链的下一个处理规则
+
 * LOG：在/var/log/messages文件中记录日志信息，然后将数据包传递给下一条规则
 
-除去最后一个LOG，前3条规则匹配数据包后，该数据包不会再往下继续匹配了，所以编写的`规则顺序`极其关键。
+
+前3条规则匹配数据包后，该数据包不会再往下继续匹配了，所以编写的`规则顺序`极其关键。
 
 
 ### iptables的数据包路由原理
@@ -166,6 +169,12 @@ iptables针对数据包有如下几种处理方式:
 ```bash
 # iptables -L -n -v --line-numbers
 ```
+注: 启动iptables服务后，默认规则如下：
+    - filter table: INPUT chain :   ACCEPT 22 port only
+    - filter table: FORWARD chain:  REJECT all
+    - filter table: OUTPUT chain:   ACCEPT all
+    - nat table: PREROUTING chain:  ACCEPT all
+    - nat table: POSTROUTING chain: ACCEPT all
 
 * 删除所有现有规则
 ```bash
@@ -185,10 +194,9 @@ iptables针对数据包有如下几种处理方式:
 # iptables -A INPUT -s $ip_addr -j DROP
 ```
 
-* 允许全部入站的SSH
+* 屏蔽指定MAC地址
 ```bash
-# iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+# iptables -A INPUT -m mac --mac-source $mac_addr -j DROP
 ```
 
 * 只允许某个特定网络进来的 SSH
@@ -197,35 +205,16 @@ iptables针对数据包有如下几种处理方式:
 # iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
-
-* 允许入站的HTTP
-```bash
-# iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 多端口（允许进来的 SSH、HTTP 和 HTTPS）
+* 允许入站的多端口（允许进来的 SSH、HTTP 和 HTTPS）
 ```bash
 # iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A OUTPUT -o eth0 -p tcp -m multiport --sports 22,80,443 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 允许出站的SSH
-```bash
-# iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 允许出站的SSH，但仅访问某个特定的网络
 ```bash
 # iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 # iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 允许出站的 HTTPS
-```bash
-# iptables -A OUTPUT -o eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A INPUT -i eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
 ```
 
 * 对进来的 HTTPS 流量做负载均衡
@@ -251,7 +240,7 @@ iptables针对数据包有如下几种处理方式:
 ```bash
 # iptables -A FORWARD -p ! icmp -j ACCEPT
 ```
-NOTE: 使用“！”可以将条件取反
+NOTE: 使用"！"可以将条件取反
 
 
 * 允许环回（loopback）访问
@@ -265,66 +254,8 @@ NOTE: 使用“！”可以将条件取反
 # iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 ```
 NOTE:   
-1) eth1 is connected to external network (internet), and eth0 is connected to internal network (192.168.1.x)   
-2) enable forward function: echo 1 > /proc/sys/net/ipv4/ip_forward
-
-
-* 允许外出的DNS
-```bash
-# iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
-# iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
-```
-
-* 允许某个特定网络 rsync 进入本机
-```bash
-# iptables -A INPUT -i eth0 -p tcp -s 192.168.101.0/24 --dport 873 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 873 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 允许 Sendmail 或 Postfix
-```bash
-# iptables -A INPUT -i eth0 -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 25 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 允许 IMAP 和 IMAPS
-```bash
-# iptables -A INPUT -i eth0 -p tcp --dport 143 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 143 -m state --state ESTABLISHED -j ACCEPT
-# iptables -A INPUT -i eth0 -p tcp --dport 993 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 993 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 允许 POP3 和 POP3S
-```bash
-# iptables -A INPUT -i eth0 -p tcp --dport 110 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 110 -m state --state ESTABLISHED -j ACCEPT
-# iptables -A INPUT -i eth0 -p tcp --dport 995 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 995 -m state --state ESTABLISHED -j ACCEPT
-```
-
-* 防止 DoS 攻击
-```bash
-# iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
-```
-NOTE: 将连接限制到每分钟 25 个，上限设定为100
-
-
-* 设置 422 端口转发到 22 端口
-```bash
-# iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport 422 -j DNAT --to-destination 192.168.102.37:22
-# iptables -A INPUT -i eth0 -p tcp --dport 422 -m state --state NEW,ESTABLISHED -j ACCEPT
-# iptables -A OUTPUT -o eth0 -p tcp --sport 422 -m state --state ESTABLISHED -j ACCEPT
-```
-或者
-```bash
-# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 422 -j REDIRECT --to-port 22   
-```
-
-* 屏蔽指定MAC地址
-```bash
-# iptables -A INPUT -m mac --mac-source $mac_addr -j DROP		
-```
+1) eth1是连接外网的网卡, eth0连接内网的网卡  
+2) 打开系统转发功能: `echo 1 > /proc/sys/net/ipv4/ip_forward`
 
 * 更换源IP地址
 ```bash
@@ -336,6 +267,25 @@ NOTE：
 1) --to-source 可以指定多个IP地址   
 2) MASQUERADE会自动读取eth0现在的ip地址然后做snat出去
 
+* 设置本地422 端口转发到本地22 端口
+```bash
+# echo 1 > /proc/sys/net/ipv4/ip_forward
+# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 422 -j REDIRECT --to-port 22   
+```
+
+* 设置本地422端口转发到远程机器的22端口
+```
+# echo 1 > /proc/sys/net/ipv4/ip_forward
+# iptables -t nat -A PREROUTING -p tcp --dport 422 -j DNAT --to-destination 192.168.50.13:22
+# iptables -I FORWARD -p tcp -s 192.168.0.0/16 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
+# iptables -t nat -I POSTROUTING -s 192.168.0.0/16 -p tcp  -j MASQUERADE
+```
+NOTE:   
+1) 数据包会先进入PREROUTING链，然后修改数据包的目的地址和端口号为：远程机器的IP地址和端口号  
+2) 内核路由模块发现数据包的目的地址被本机IP地址，于是数据进入FORWARD链  
+3) FORWARD链发现数据包其原数据包地址是192.168.0.0网段，于是对其进行转发  
+4) 数据包接着进入POSTROUTING链，发现数据包是192.168.0.0网段，于是修改数据包的原IP地址，然后发送出去  
+
 
 * 限制并发连接数
 ```bash
@@ -343,6 +293,28 @@ NOTE：
 ```
 NOTE: 限制每个客户端不超过 3 个连接。
 
+* 为丢弃的包做日志
+```bash
+# iptables -N LOGGING //新建LOGGING chain
+# iptables -A INPUT -j LOGGING
+# iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
+# iptables -A LOGGING -j DROP
+```
+
+* 防止 DoS 攻击
+```bash
+# iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+```
+NOTE: 将连接限制到每分钟 25 个，上限设定为100
+
+
+* 禁止nmap扫描
+```bash
+# iptables -A INPUT  -m recent --name portscan --rcheck --seconds 86400 -j DROP  // Attempt to block portscans, Anyone who tried to portscan us is locked out for an entire day.
+# iptables -A INPUT  -m recent --name portscan --remove  // Once the day has passed, remove them from the portscan list
+# iptables -A INPUT  -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscan:" // These rules add scanners to the portscan list, and log the attempt.
+# iptables -A INPUT  -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
+```
 
 * 保存iptables规则
 ```bash
@@ -352,16 +324,29 @@ NOTE: 默认情况下，iptables 规则的操作会立即生效。但由于规�
 所以重启系统会造成配置丢失，要永久保存 IPtables 规则可以使用 iptables-save 命令。
 
 
-* 为丢弃的包做日志（Log）
-```bash
-# iptables -N LOGGING //新建LOGGING chain
-# iptables -A INPUT -j LOGGING
-# iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
-# iptables -A LOGGING -j DROP
-```
+## rp_filter机制
+
+* 问题
+
+Linux的rp_filter用于实现反向过滤技术(uRPF)，它验证反向数据包的流向，以避免伪装IP攻击，
+但是它和Linux的策略路由却很容易发生冲突，其本质原因在于，uRPF技术强制规定了一个反向包的“方向”，而实际的路由是没有方向的  
+
+* 现象
+
+如，local-machine(192.168.50.28），remote-machine-1(192.168.50.240,10.0.0.15,10.0.10.15), remote-machine-2(10.0.0.16,10.0.10.16)  
+在remote-machine-1上设置DNAT规则:  `iptables -t nat -I PREROUTING -p tcp --dport 5050 --to-destination 10.0.10.16:5050`
+
+以上的DNAT无法使得local-machine可以访问remote-machine-2的5050端口，这是由于remote-machine-2会验证反向路径，
+做法就是源IP和目标IP对调，查找到的出口必须是正向包进来的网卡,remote-machine-2 会使用`ip route get 192.168.50.28` 
+获取该数据应该从eth0进来，而实际该数据包是从eth1进来，于是认为该数据包不符合路由策率，丢弃该数据包
+
+* 解决方法
+    - 禁用rp_filter： `echo 0 > /proc/sys/net/ipv4/conf/all/rp_filter`
+    - 修改原IP地址:   `iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -p tcp -j MASQUERADE`
 
 
 ## 参考
-[iptables防火墙原理知多少](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
 
-[25 个常用的 Linux iptables 规则](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
+- [iptables防火墙原理知多少](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
+- [25 个常用的 Linux iptables 规则](https://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=2655438389&idx=2&sn=951f77ec3c82e2d351f5a99c689cb467&chksm=bd730a428a048354050ce5a44bae93737f3ba868d0562f23440832e30ce59bdeac33714396df&scene=0&pass_ticket=hdYlVJ3H8OwZDRQZuKheVyBgST8d7tWgzLu4SUBecHLa%2FpHiqM75p1UX6f8W3QDT#rd)
+- [iptables使用技巧](https://serverfault.com/questions/245711/iptables-tips-tricks/245713#245713)
