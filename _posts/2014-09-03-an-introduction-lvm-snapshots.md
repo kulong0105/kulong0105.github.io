@@ -55,8 +55,8 @@ fsadm: Xfs filesystem shrinking is unsupported
  #
 ```
 注：   
-1) 文件系统需要umount  
-2) xfs文件系统不支持容缩:[ref](http://xfs.org/index.php/XFS_FAQ#Q:_Is_there_a_way_to_make_a_XFS_filesystem_larger_or_smaller.3F)
+- 文件系统需要umount
+- xfs文件系统不支持容缩:[参考](http://xfs.org/index.php/XFS_FAQ#Q:_Is_there_a_way_to_make_a_XFS_filesystem_larger_or_smaller.3F)
 
 
 ### 创建snaphost与恢复
@@ -66,8 +66,13 @@ fsadm: Xfs filesystem shrinking is unsupported
 # lvconvert --merge /dev/vg_data/lv_data_snapshot
 ```
 注：  
-1） 恢复snaphost时，需要umount原逻辑卷   
-2） 可以通过修改 /etc/lvm/lvm.conf 的 snapshot_autoextend_threshold 字段来自动扩容snaphost逻辑卷的大小 (不需要重启任何服务）  
+- 恢复snapshot时，需要umount原逻辑卷
+- 可以通过修改 /etc/lvm/lvm.conf 的 snapshot_autoextend_threshold 字段来自动扩容snaphost逻辑卷的大小 (不需要重启任何服务）
+- lvm snapshot在新增文件时会引起数据块被copy到snapshot上，两个原因：
+    - a): lvm snapshot 跟文件系统无关，所以当新增加一个文件时，它是无感的，不知道是add还是update
+    - b): 由于是对文件系统无感，所以就是通过block来感知的，所有数据都是以block方式copy
+- lvm thinpool snapshot不会修改任何原始数据，会创建软链接指向所有原始数据, 所有操作都是直接在snapshot上操作
+- lvm thinpool snapshot在新增文件的情况下，就不会引起原始数据块copy
 
 
 ### 创建thinpool及thinpool逻辑卷
@@ -81,9 +86,9 @@ fsadm: Xfs filesystem shrinking is unsupported
 # lvextend -L +10GB /dev/vg_data_thinpool/lv_data_thinpool_client1
 ```
 注：  
-1) 不能对thinpool进行缩容   
-2) 可以对thinpool以及thinpool_client进行扩容   
-3) 可以通过修改 /etc/lvm/lvm.conf 的thin_pool_autoextend_threshold 字段来自动扩容thin_pool逻辑卷的大小(不需要重启任何服务）
+- 不能对thinpool进行缩容
+- 可以对thinpool以及thinpool_client进行扩容
+- 可以通过修改 /etc/lvm/lvm.conf 的thin_pool_autoextend_threshold 字段来自动扩容thin_pool逻辑卷的大小(不需要重启任何服务）
 
 
 ### 条带化
@@ -93,9 +98,10 @@ fsadm: Xfs filesystem shrinking is unsupported
 # lvcreate -L 100GB -i4 -n lv_strip1 vg_strip
 # lvcreate -L 100GB -i3 -I 256 -n lv_strip2 vg_strip
 ```
-注： 可以使用`lvdisplay /dev/vg_strip/lv_strip1 -m`查看    
-1） -i 设置stripes    
-2） -I 设置stripe_size    
+注：
+- 可以使用`lvdisplay /dev/vg_strip/lv_strip1 -m`查看
+-  -i 设置stripes
+-  -I 设置stripe_size
 
 
 调查发现, 设置lvm的“条带化”功能时，Blocksize的不同对性能影响很大（默认的stripsizes大小为64KB）
@@ -122,7 +128,7 @@ fsadm: Xfs filesystem shrinking is unsupported
 可以得出：
 - 在bs小于4K时，linear性能更好
 - 在bs 4K ～ 64时，linear 和 strip 性能基本一致
-- 在bs大于128时，strip性能明显要好。
+- 在bs大于128时，strip性能明显要好
 
 
 ## 查看与下载
