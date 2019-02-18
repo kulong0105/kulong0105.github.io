@@ -138,8 +138,8 @@ n<&-	关闭FD为n的输入
 ```
 
 refers:
-- http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html
-- http://molinux.blog.51cto.com/2536040/469554
+- [http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html](http://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/x13082.html)
+- [http://molinux.blog.51cto.com/2536040/469554](http://molinux.blog.51cto.com/2536040/469554)
 
 
 ### 检查远程端口是否打开
@@ -148,7 +148,6 @@ refers:
 
 ```
 $ echo > /dev/tcp/$ip/$port &>/dev/null  &&  echo "Open"
-
 ```
 
 
@@ -208,7 +207,8 @@ EOF
 awk '!x[$0]++' /tmp/testfile
 ```
 
-refers: https://unix.stackexchange.com/questions/159695/how-does-awk-a0-work
+refers: [https://unix.stackexchange.com/questions/159695/how-does-awk-a0-work](https://unix.stackexchange.com/questions/159695/how-does-awk-a0-work)
+
 
 ### sed 移除某行及下一行
 
@@ -217,5 +217,60 @@ sed '/bar/,+1 d' filename
 ```
 
 refers:
-- https://unix.stackexchange.com/questions/56123/remove-line-containing-certain-string-and-the-following-line
-- http://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html
+- [https://unix.stackexchange.com/questions/56123/remove-line-containing-certain-string-and-the-following-line](https://unix.stackexchange.com/questions/56123/remove-line-containing-certain-string-and-the-following-line)
+- [http://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html](http://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html)
+
+
+### 转换字符串为小写
+
+```
+[renyl@localhost /]$ name="KULong"
+[renyl@localhost /]$ echo ${name,,}
+kulong
+[renyl@localhost /]$
+```
+
+refers: [https://stackoverflow.com/questions/2264428/how-to-convert-a-string-to-lower-case-in-bash](https://stackoverflow.com/questions/2264428/how-to-convert-a-string-to-lower-case-in-bash)
+
+
+### 在函数内部使用getopts
+
+定义OPTIND变量为local类型即可
+
+refers: [https://stackoverflow.com/questions/16654607/using-getopts-inside-a-bash-function](https://stackoverflow.com/questions/16654607/using-getopts-inside-a-bash-function)
+
+
+### 对函数设置timeout
+
+```
+- export $my_function
+- timeout 100 bash -c "$my_fucntion"
+```
+
+refers: [https://stackoverflow.com/questions/9954794/execute-a-shell-function-with-timeout](https://stackoverflow.com/questions/9954794/execute-a-shell-function-with-timeout)
+
+
+### 如何判断一个变量为空或只包含空格
+
+```
+[[ -z "${variable// }" ]] && echo YES
+```
+
+refers: [https://unix.stackexchange.com/questions/146942/how-can-i-test-if-a-variable-is-empty-or-contains-only-spaces](https://unix.stackexchange.com/questions/146942/how-can-i-test-if-a-variable-is-empty-or-contains-only-spaces)
+
+
+### 如何以words方式逆序输出一行字符串
+
+```
+awk '{for(i=NF;i>=1;i--) printf "%s ", $i;print ""}' $filename
+```
+refers: [https://unix.stackexchange.com/questions/336149/print-all-words-on-lines-of-a-file-in-reverse-order](https://unix.stackexchange.com/questions/336149/print-all-words-on-lines-of-a-file-in-reverse-order)
+
+
+### 磁盘格式化最优方式
+
+```
+parted $disk --align optimal -s "mkpart primary xfs ${start_percentage}% ${end_percentage}%"
+```
+
+refers: [https://unix.stackexchange.com/questions/38164/create-partition-aligned-using-parted](https://unix.stackexchange.com/questions/38164/create-partition-aligned-using-parted)
