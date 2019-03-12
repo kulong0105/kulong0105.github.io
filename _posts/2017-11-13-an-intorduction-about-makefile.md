@@ -29,14 +29,14 @@ tags:
 
 说明：
 -  "目标"是必需的，不可省略
--  "目标"可以是多个，已空格分隔
+-  "目标"可以是多个，以空格分隔
 -  "依赖"和"规则"是可选的，但两者之中必须至少存在一个
 -  第二行必须由一个tab键开始
 
 
 ### 工作原理
 
-检测目标是否存在:
+目标是否存在:
 - 存在: 
     - 检查目标的所有依赖，任何一个依赖有更新时，就重新生成目标
     - 目标文件比依赖文件时间晚，则需要更新
@@ -45,17 +45,11 @@ tags:
     - 不存在的话寻找是否有规则用来生成该依赖文件
 
 <div style="text-align: center">
-<img src="https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/pictures/makefile_1.webp"/>
-</div>
-
-<div style="text-align: center">
-<img src="https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/pictures/makefile_2.webp"/>
+<img src="https://github.com/kulong0105/kulong0105.github.io/raw/master/documents/pictures/makefile.webp"/>
 </div>
 
 
 ### 变量
-
-变量分为： 
 
 - 内置变量
     - .RECIPEPREFIX 
@@ -70,12 +64,12 @@ tags:
 
     - .EXPORT_ALL_VARIABLES
     ```
-    .EXPORT_ALL_VARIABLES:   // 明确申明导出之后所有的变量到子进程
+    .EXPORT_ALL_VARIABLES:   // 明确声明导出之后所有的变量到子进程
     ```
 
     - MAKECMDGOALS
     ```
-    $(info *** starting Makefile for goal(s) "$(MAKECMDGOALS)")
+    $(info *** starting Makefile for goal(s) "$(MAKECMDGOALS)")  //打印编译目标
     ```
 
 - 自动变量
@@ -115,8 +109,8 @@ tags:
 
     - 读取OS的HOME环境变量
     ```
-    all:
-        echo $${HOME}
+all:
+    echo $${HOME}
     ```
 
 - 普通变量
