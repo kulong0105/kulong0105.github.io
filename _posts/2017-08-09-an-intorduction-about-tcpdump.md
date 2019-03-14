@@ -133,7 +133,7 @@ IP协议处于TCP/IP四层模型的第二层（网络层）, 与ICMP/ARP/RARP处
 
 ### 过滤器
 
-网络数据包异常的多，觉大多时候，只需要获取所关心的数据包，可使用过滤器获取指定的数据包, 过滤器分为多种:
+网络数据包异常的多，绝大多时候，只需要获取所关心的数据包，可使用过滤器获取指定的数据包, 过滤器分为多种:
 
 - 类型: `host`, `net`, `port`, `portrange`
 - 方向：`src`, `dst`
@@ -175,8 +175,9 @@ tcpdump: listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 b
 ```
 tcpdump -i any
 ```
+注：默认只会选择机器上的`一块网卡`进行监听
 
--监视指定网络接口的数据包
+- 监视指定网络接口的数据包
 
 ```
 tcpdump -i eth1
