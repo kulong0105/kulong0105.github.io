@@ -7,7 +7,7 @@ tags:
 
 ## 介绍
 
-一个项目通常有多个源文件组成，关于如何编译这些源文件，Makefile定义了一套规则决定了:
+一个项目通常有多个源文件组成，关于如何编译这些源文件，Makefile定义了一套规则决定:
 - 哪些文件要先编译
 - 哪些文件后编译
 - 哪些文件要重新编译
@@ -72,6 +72,17 @@ tags:
     $(info *** starting Makefile for goal(s) "$(MAKECMDGOALS)")  //打印编译目标
     ```
 
+    - SHELL
+    ```
+    SHELL := /bin/bash   // 设置shell
+    ```
+
+    - MAKEFLAGS
+    ```
+    MAKEFLAGS += -s    // 关闭执行命令时回显
+    MAKEFLAGS += --no-builtin-rules  // 关闭内建规则
+    ```
+
 - 自动变量
     - $@
     ```
@@ -132,6 +143,18 @@ all:
     - 变量追加
     ```
     v1 += $(v2)  // v1 = v1 + " " + v2
+    ```
+
+    - define变量
+    ```
+define HELP_INFO
+#Usage:
+#    make $target
+#Example:
+#    make tool
+endef
+help:
+    echo $$HELP_INFO     // 使用$$引用变量
     ```
 
 
