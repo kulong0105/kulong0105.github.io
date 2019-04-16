@@ -290,21 +290,78 @@ make命令的常用选项：
 
 ## 错误使用
 
-错误用法:
+- 错误用法1:
 ```
-target:
-    ifeq (foo, bar)
-        ...
-    endif
+[renyl@localhost build]$ cat -A Makefile
+name = allen$
+$
+target:$
+^I@echo "X"$
+$
+^Iifeq ($(name), allen)$         <=== 使用tab开头
+^I^I@echo "Y"$
+^Iendif$
+$
+[renyl@localhost build]$ make
+X
+ifeq (allen, allen)
+/bin/sh: -c: line 0: syntax error near unexpected token `allen,'
+/bin/sh: -c: line 0: `ifeq (allen, allen)'
+make: *** [Makefile:5: target] Error 1
+[renyl@localhost build]$
 ```
 
-正确用法:
+- 正确用法1:
 ```
-target:
-ifeq (foo, bar)
-    ...
-endif
+[renyl@localhost build]$ cat -A Makefile
+name = allen$
+$
+target:$
+^I@echo "X"$
+$
+ifeq ($(name), allen)$          <=== 没有使用tab开头
+^I@echo "Y"$
+endif$
+$
+[renyl@localhost build]$ make
+X
+Y
+[renyl@localhost build]$
 ```
+
+- 错误用法2：
+```
+[renyl@localhost build]$ cat -A Makefile
+ifeq ($(MAKECMDGOALS),)$
+^I$(error This Makefile requires an explicit rule to be specified)$          <=== 使用tab开头
+endif$
+$
+.PHONY: test$
+test$
+^I@echo test$
+[renyl@localhost build]$ make
+Makefile:2: *** recipe commences before first target.  Stop.
+[renyl@localhost build]$
+```
+
+- 正确用法2：
+```
+[renyl@localhost build]$ cat -A Makefile
+ifeq ($(MAKECMDGOALS),)$
+    $(error This Makefile requires an explicit rule to be specified)$        <=== 没有使用tab开头
+endif$
+$
+.PHONY: test$
+test$
+^I@echo test$
+[renyl@localhost build]$ make
+Makefile:2: *** This Makefile requires an explicit rule to be specified.  Stop.
+[renyl@localhost build]$
+```
+
+说明：
+- 当ifeq紧接在target后面，不需要使用tab开头，同时ifeq里面需要使用tab开头
+- 当ifeq不作为target的执行内容时，ifeq里面不需要使用tab开头
 
 
 ## 实例
