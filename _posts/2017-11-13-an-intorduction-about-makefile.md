@@ -288,6 +288,25 @@ make命令的常用选项：
 |-s| |不打印出执行的命令|
 
 
+## 错误使用
+
+错误用法:
+```
+target:
+    ifeq (foo, bar)
+        ...
+    endif
+```
+
+正确用法:
+```
+target:
+ifeq (foo, bar)
+    ...
+endif
+```
+
+
 ## 实例
 
 ```
