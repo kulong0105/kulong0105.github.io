@@ -151,6 +151,12 @@ git push origin br-2.0
 git branch -u origin/br-2.0 br-2.0
 ```
 
+创建远程upstream的分支并在origin进行track:
+```
+git checkout -b br-3.0 upstream/br-3.0
+git push -u origin  br-3.0
+```
+
 ### config
 
 ```
