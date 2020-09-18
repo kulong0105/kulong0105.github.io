@@ -458,7 +458,8 @@ mtime查询的是文件last modified时间，其中最让人迷惑的就是参�
 | 4 | lsof -u username | 根据用户显示打开的文件 |
 | 5 | lsof -g GPID | 根据进程组IP显示打开的文件|
 | 6 | lsof -i tcp:25 | 查看指定协议/端口号的文件|
-| 7 | lsof +D /home/ren | 查看目录被打开的情况 |
+| 7 | lsof -i tcp@192.168.34.128 | 查看远程已打开的网络链接|
+| 8 | lsof +D /home/ren | 查看目录被打开的情况 |
 
 
 ### lspci
