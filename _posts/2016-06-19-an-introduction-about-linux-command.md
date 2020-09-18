@@ -818,6 +818,14 @@ Host allen
 2)然后就可以运行 ssh allen 进行连接了  
 
 
+### stty
+
+说明: 调整终端size
+
+```
+stty cols 231 rows 81
+```
+
 ### sync
 
 说明：将dirty的内容写回硬盘
