@@ -588,6 +588,12 @@ mount UUID=bf0c50bb-8b71-45f8-91e2-f197e2f8b7c9 /home/renyl/，如果能挂载�
 # numactl –hardware   （查看numa node）
 ```
 
+### openssl
+
+说明: 查看证书
+```
+openssl s_client -showcerts -connect www.baidu.com:443
+```
 
 ### oprofile
 
@@ -677,7 +683,7 @@ pfmon –e L2D_MISSES ./test
 # powertop
 ```
 
-### qume-img
+### qemu-img
 
 说明：创建一个设备文件
 ```
